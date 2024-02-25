@@ -75,6 +75,7 @@ const App: React.FC = () => {
 
       </Section> */}
       <Section
+        disableScrollTimeline
         scrollReveal
         secondary
         title="Active Projects"

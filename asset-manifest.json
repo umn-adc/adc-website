@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.js": "/adc-website/static/js/main.05c6f526.js",
+    "static/media/NotoSansItalic-Variable.ttf": "/adc-website/static/media/NotoSansItalic-Variable.628d4779d07f4e15066b.ttf",
+    "static/media/NotoSans-Variable.ttf": "/adc-website/static/media/NotoSans-Variable.b1d0ab70303caea663db.ttf",
+    "static/media/NotoSansMono-Variable.ttf": "/adc-website/static/media/NotoSansMono-Variable.7f445146b80e3974a30f.ttf",
+    "static/media/johnny.jpg": "/adc-website/static/media/johnny.03463cad0dc2554dd432.jpg",
+    "static/media/tweaked.svg": "/adc-website/static/media/tweaked.53653e4aaa6275ea22e763423be8e530.svg",
+    "static/media/victor.png": "/adc-website/static/media/victor.57111e8bcf741ebbfb2e.png",
+    "static/media/akanksha.jpg": "/adc-website/static/media/akanksha.d1443904b8e755d20d39.jpg",
+    "static/media/dhruv.jpg": "/adc-website/static/media/dhruv.f159d1517f3ca9edce29.jpg",
+    "static/media/kickoff.jpg": "/adc-website/static/media/kickoff.c43957876e9688e08244.jpg",
+    "static/media/liem.jpg": "/adc-website/static/media/liem.b9cbe2e5607b489bbefc.jpg",
+    "static/media/lennon.jpg": "/adc-website/static/media/lennon.ae5da76a185acb754570.jpg",
+    "static/media/gideon.jpg": "/adc-website/static/media/gideon.d59a4fffa5e4c0478050.jpg",
+    "static/media/showcase.jpg": "/adc-website/static/media/showcase.63e48e286bcea5bbc52d.jpg",
+    "static/media/shreya.jpg": "/adc-website/static/media/shreya.43201cf63b4a7cca11f0.jpg",
+    "static/media/app-development-lifecycle.jpg": "/adc-website/static/media/app-development-lifecycle.2e266afd38281883a0c7.jpg",
+    "static/media/ADC_Logo_Blue.png": "/adc-website/static/media/ADC_Logo_Blue.3bbfd299813a140001d2.png",
+    "static/media/ADC_Logo_White.png": "/adc-website/static/media/ADC_Logo_White.b729f08e6846aabf5f86.png",
+    "static/media/waves-top.svg": "/adc-website/static/media/waves-top.a435e21a354c5df68f5660d1d3c0caff.svg",
+    "static/media/waves-bottom.svg": "/adc-website/static/media/waves-bottom.7ef7f35f14c683c92191acc9aad90078.svg",
+    "index.html": "/adc-website/index.html",
+    "main.05c6f526.js.map": "/adc-website/static/js/main.05c6f526.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.05c6f526.js"
+  ]
+}

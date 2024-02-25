@@ -75,7 +75,7 @@ export const OuterContainer = styled.div<OuterContainerProps>`
           scrollReveal && !disableScrollTimeline ? zoomOut : 'none'}
         linear backwards;
     ${({ disableScrollTimeline }) =>
-      disableScrollTimeline
+      !disableScrollTimeline
         ? `animation-timeline: view();
     animation-range: 200px contain;`
         : ''}

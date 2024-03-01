@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+export const Picture = styled.img`
+  border-radius: 50%;
+  aspect-ratio: 1;
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  transition: all 300ms var(--custom-ease);
+
+  border: 5px solid ${({ theme }) => theme.colors.secondary};
+`;
 interface ContainerProps {
   message?: string;
 }
@@ -15,7 +25,6 @@ export const Container = styled.div<ContainerProps>`
   position: relative;
   cursor: default;
   user-select: none;
-  transition: all 300ms var(--custom-ease);
 
   > h2 {
     font-weight: 600;
@@ -49,12 +58,13 @@ export const Container = styled.div<ContainerProps>`
   }
 
   &:hover {
+    ${Picture} {
+      transform: scale(1.05) !important;
+    }
     &:after {
       bottom: 90%;
       opacity: 1;
     }
-
-    transform: scale(1.06) !important;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -66,14 +76,4 @@ export const Container = styled.div<ContainerProps>`
       transition: all 200ms var(--custom-ease);
     }
   }
-`;
-
-export const Picture = styled.img`
-  border-radius: 50%;
-  aspect-ratio: 1;
-  height: 100px;
-  width: 100px;
-  object-fit: cover;
-
-  border: 5px solid ${({ theme }) => theme.colors.secondary};
 `;

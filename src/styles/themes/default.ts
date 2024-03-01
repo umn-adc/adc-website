@@ -11,7 +11,7 @@ const defaultTheme = {
     secondaryLighter: '##afe1ff',
     accent: '#f27200',
     accentLight: '#ff861c',
-    accentDark: '##d96500',
+    accentDark: '#d96500',
   },
 };
 

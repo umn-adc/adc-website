@@ -1,6 +1,16 @@
 import styled from 'styled-components';
 import { fadeInUp } from 'styles/global';
 
+export const AppContainer = styled.div`
+  overflow-x: clip;
+
+  @media (max-width: 1024px) {
+    #page-wrap {
+      padding-top: 56px;
+    }
+  }
+`;
+
 export const ProfileContainer = styled.div`
   display: flex;
   flex-direction: row;

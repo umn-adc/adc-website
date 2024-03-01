@@ -20,7 +20,7 @@ const Highlight: React.FC<HighlightProps> = ({
   return (
     <Container secondary={secondary} {...props} scrollReveal={scrollReveal}>
       <Content>
-        <TextSection scrollReveal={scrollReveal}>
+        <TextSection scrollReveal={scrollReveal} secondary={secondary}>
           <h3>{title}</h3>
           <p>{body}</p>
         </TextSection>

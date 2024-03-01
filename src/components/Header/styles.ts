@@ -1,6 +1,14 @@
 import styled from 'styled-components';
 
+export const Menu = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: 70%;
+  gap: 5px;
+`;
+
 export const Container = styled.div`
+  z-index: 500;
   height: 56px;
   width: 100%;
   box-sizing: border-box;
@@ -9,7 +17,15 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   align-content: center;
-  padding: 0px 20px;
+  padding: 0px 100px;
+
+  @media (max-width: 1024px) {
+    justify-content: center;
+    position: fixed;
+    ${Menu} {
+      display: none;
+    }
+  }
 `;
 
 export const HomeLink = styled.a`
@@ -21,7 +37,11 @@ export const HomeLink = styled.a`
   box-sizing: border-box;
 `;
 
-export const HeaderLink = styled.span`
+export const HeaderLink = styled.button`
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-size: 16px;
   border-radius: 5px;
   padding: 10px;
   transition: var(--custom-ease) 150ms all;
@@ -34,11 +54,4 @@ export const HeaderLink = styled.span`
     filter: brightness(-1);
     background-color: #f0f0f0;
   }
-`;
-
-export const Menu = styled.div`
-  display: flex;
-  justify-content: space-between;
-  height: 70%;
-  gap: 5px;
 `;

@@ -1,6 +1,12 @@
 import React, { HTMLProps, ReactNode, useEffect, useRef } from 'react';
 import { useIntersectionObserver } from 'hooks/useIntersectionObserver';
-import { Container, Content, OuterContainer } from './styles';
+import {
+  BottomDecoratorContainer,
+  Container,
+  Content,
+  OuterContainer,
+  TopDecoratorContainer,
+} from './styles';
 
 interface SectionProps extends HTMLProps<HTMLDivElement> {
   title: string;
@@ -34,11 +40,12 @@ const Section: React.FC<SectionProps> = ({
 
   return (
     <OuterContainer
+      {...props}
       scrollReveal={scrollReveal}
       disableScrollTimeline={disableScrollTimeline}
     >
-      {topDecorator}
-      <Container {...props} alt={secondary}>
+      <TopDecoratorContainer>{topDecorator}</TopDecoratorContainer>
+      <Container alt={secondary}>
         <Content
           ref={obsRef}
           isIntersecting={
@@ -50,7 +57,7 @@ const Section: React.FC<SectionProps> = ({
           {children}
         </Content>
       </Container>
-      {bottomDecorator}
+      <BottomDecoratorContainer>{bottomDecorator}</BottomDecoratorContainer>
     </OuterContainer>
   );
 };

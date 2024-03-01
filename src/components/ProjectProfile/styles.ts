@@ -12,13 +12,32 @@ export const Container = styled.a`
   text-decoration: none;
   color: ${({ theme }) => theme.colors.contrast};
 
-  h3 {
+  > h3 {
     font-size: 16px;
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background-color: ${({ theme }) => theme.colors.accent};
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 200ms var(--custom-ease);
+    }
   }
 
   &:hover {
     > div {
       transform: scale(1.1) rotate(4deg);
+    }
+
+    > h3 {
+      &:after {
+        transform: scaleX(1);
+      }
     }
   }
 `;

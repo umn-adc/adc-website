@@ -5,7 +5,25 @@ interface ContainerProps {
   secondary?: boolean;
   scrollReveal?: boolean;
 }
-export const Content = styled.div``;
+
+export const Content = styled.div`
+  padding: 40px;
+  display: flex;
+  max-width: 75%;
+  place-content: center;
+  place-items: center;
+  gap: 60px;
+
+  > img {
+    max-height: 200px;
+  }
+
+  @media (max-width: 1024px) {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 20px;
+  }
+`;
 
 export const Container = styled.div<ContainerProps>`
   background-color: ${({ theme, secondary }) =>
@@ -18,30 +36,27 @@ export const Container = styled.div<ContainerProps>`
   gap: 20px;
 
   > ${Content} {
-    padding: 40px;
-    display: flex;
     flex-direction: ${({ secondary }) => (secondary ? 'row' : 'row-reverse')};
     color: ${({ theme, secondary }) =>
       secondary ? theme.colors.contrastInverted : theme.colors.contrast};
-    max-width: 75%;
-    place-content: center;
-    place-items: center;
-    gap: 60px;
-
-    > img {
-      max-height: 200px;
-    }
 
     @media (prefers-reduced-motion: no-preference) {
-      animation:
-        ${({ scrollReveal }) => (scrollReveal ? fadeIn : 'none')} linear
-          backwards,
-        ${({ scrollReveal, secondary }) =>
-            // eslint-disable-next-line no-nested-ternary
-            scrollReveal ? (secondary ? moveUp : moveDown) : 'none'}
-          linear backwards;
-      animation-timeline: view();
-      animation-range: 150px 350px;
+      img {
+        animation:
+          ${({ scrollReveal }) => (scrollReveal ? fadeIn : 'none')} linear
+            backwards,
+          ${({ scrollReveal, secondary }) =>
+              // eslint-disable-next-line no-nested-ternary
+              scrollReveal ? (secondary ? moveDown : moveUp) : 'none'}
+            linear backwards;
+        animation-timeline: view();
+        animation-range: 150px 350px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      display: flex;
+      flex-direction: column-reverse;
     }
   }
 `;
@@ -72,7 +87,7 @@ export const TextSection = styled.div<TextSectionProps>`
           backwards,
         ${({ scrollReveal, secondary }) =>
             // eslint-disable-next-line no-nested-ternary
-            scrollReveal ? (secondary ? moveRight : moveLeft) : 'none'}
+            scrollReveal ? (secondary ? moveLeft : moveRight) : 'none'}
           linear backwards;
       animation-timeline: view();
       animation-range: 0px 300px;
@@ -84,7 +99,7 @@ export const TextSection = styled.div<TextSectionProps>`
           backwards,
         ${({ scrollReveal, secondary }) =>
             // eslint-disable-next-line no-nested-ternary
-            scrollReveal ? (secondary ? moveRight : moveLeft) : 'none'}
+            scrollReveal ? (secondary ? moveLeft : moveRight) : 'none'}
           linear backwards;
       animation-timeline: view();
       animation-range: 100px 300px;

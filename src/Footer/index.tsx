@@ -9,6 +9,7 @@ import {
   FaYoutube,
 } from 'react-icons/fa';
 import { Container, Divider, FooterLink, FooterLinkContainer } from './styles';
+import FooterSocialLink from './FooterSocialLink';
 
 const Footer: React.FC = () => {
   return (
@@ -25,12 +26,24 @@ const Footer: React.FC = () => {
         <FooterLink>Events</FooterLink>
       </FooterLinkContainer>
       <FooterLinkContainer>
-        <FaDiscord size={30} />
-        <FaGithub size={30} />
-        <FaLinkedin size={30} />
-        <FaInstagram size={30} />
-        <FaFacebook size={30} />
-        <FaYoutube size={30} />
+        <FooterSocialLink href="https://www.discord.gg/XCqJEbv">
+          <FaDiscord size={30} />
+        </FooterSocialLink>
+        <FooterSocialLink href="https://github.com/umn-adc">
+          <FaGithub size={30} />
+        </FooterSocialLink>
+        <FooterSocialLink href="https://www.linkedin.com/company/app-developers-club/about/">
+          <FaLinkedin size={30} />
+        </FooterSocialLink>
+        <FooterSocialLink href="https://www.instagram.com/appdev_umn/">
+          <FaInstagram size={30} />
+        </FooterSocialLink>
+        <FooterSocialLink href="https://www.facebook.com/appdevelopersclubumn/">
+          <FaFacebook size={30} />
+        </FooterSocialLink>
+        <FooterSocialLink href="https://www.youtube.com/channel/UC69SHPWie_SrO-Gtpr8vHuw">
+          <FaYoutube size={30} />
+        </FooterSocialLink>
       </FooterLinkContainer>
       <Divider />
       <p>© 2023 App Developers Club</p>

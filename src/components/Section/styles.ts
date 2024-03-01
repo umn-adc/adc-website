@@ -16,6 +16,20 @@ interface ContentProps {
   isIntersecting?: boolean;
 }
 
+export const TopDecoratorContainer = styled.div`
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  margin: 0;
+  margin-bottom: -5px;
+`;
+export const BottomDecoratorContainer = styled.div`
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  margin: 0;
+`;
+
 export const Content = styled.div<ContentProps>`
   padding: 50px;
   display: flex;
@@ -77,7 +91,7 @@ export const OuterContainer = styled.div<OuterContainerProps>`
     ${({ disableScrollTimeline }) =>
       !disableScrollTimeline
         ? `animation-timeline: view();
-    animation-range: 200px contain;`
+    animation-range: 200px 600px;`
         : ''}
   }
 `;

@@ -38,6 +38,12 @@ export const Container = styled.div`
     animation: ${parallax} linear;
     animation-timeline: view();
   }
+
+  @media (max-width: 1024px) {
+    > img {
+      width: 90%;
+    }
+  }
 `;
 
 export const ButtonsContainer = styled.div`
@@ -48,4 +54,8 @@ export const ButtonsContainer = styled.div`
   gap: 20px;
   place-items: center;
   place-content: center;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;

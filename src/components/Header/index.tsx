@@ -20,6 +20,13 @@ const Header = () => {
         </HeaderLink>
         <HeaderLink
           onClick={() => {
+            window.location.href = '/challenges';
+          }}
+        >
+          Challenges
+        </HeaderLink>
+        <HeaderLink
+          onClick={() => {
             scroller.scrollTo('boardSection', {
               duration: 1000,
               smooth: true,

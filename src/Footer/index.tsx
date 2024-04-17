@@ -8,6 +8,7 @@ import {
   FaLinkedin,
   FaYoutube,
 } from 'react-icons/fa';
+import { scroller } from 'react-scroll';
 import { Container, Divider, FooterLink, FooterLinkContainer } from './styles';
 import FooterSocialLink from './FooterSocialLink';
 
@@ -21,9 +22,25 @@ const Footer: React.FC = () => {
         style={{ filter: 'grayscale()', opacity: 0.4 }}
       />
       <FooterLinkContainer>
-        <FooterLink>Home</FooterLink>
-        <FooterLink>Officers</FooterLink>
-        <FooterLink>Events</FooterLink>
+        <FooterLink href="/">Home</FooterLink>
+        <FooterLink href="/challenges">Challenges</FooterLink>
+        <FooterLink
+          onClick={() => {
+            scroller.scrollTo('boardSection', {
+              duration: 1000,
+              smooth: true,
+              delay: 0,
+            });
+          }}
+        >
+          Officers
+        </FooterLink>
+        <FooterLink
+          href="https://gopherlink.umn.edu/events?group_ids=35824&event_type=undefined"
+          target="_blank"
+        >
+          Events
+        </FooterLink>
       </FooterLinkContainer>
       <FooterLinkContainer>
         <FooterSocialLink href="https://www.discord.gg/XCqJEbv">

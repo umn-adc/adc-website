@@ -35,6 +35,8 @@ export const FooterLinkContainer = styled.div`
 `;
 
 export const FooterLink = styled.a`
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.contrast};
   border-radius: 5px;
   padding: 10px;
   transition: var(--custom-ease) 150ms all;

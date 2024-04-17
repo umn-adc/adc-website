@@ -25,7 +25,7 @@ const board = [
     name: 'Liem',
     position: 'Vice-President',
     picture: Liem,
-    message: 'Donowall enthusiast',
+    message: 'Least toxic TFT player',
   },
   {
     name: 'Victor',
@@ -37,7 +37,7 @@ const board = [
     name: 'Lennon',
     position: 'Marketing Director',
     picture: Lennon,
-    message: 'The 𝘥𝘦𝘴𝘪𝘨𝘯 🐐',
+    message: 'Someone once told me',
   },
   {
     name: 'Johnny',

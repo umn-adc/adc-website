@@ -14,6 +14,7 @@ interface ContainerProps {
 
 interface ContentProps {
   isIntersecting?: boolean;
+  animationDelay?: number;
 }
 
 export const TopDecoratorContainer = styled.div`
@@ -55,6 +56,8 @@ export const Content = styled.div<ContentProps>`
       opacity: 0;
       animation: ${({ isIntersecting }) => (isIntersecting ? fadeInUp : 'none')}
         1200ms var(--custom-ease);
+      ${({ animationDelay }) =>
+        animationDelay ? `animation-delay: ${animationDelay}ms` : ''};
       animation-fill-mode: forwards;
     }
 
@@ -62,7 +65,8 @@ export const Content = styled.div<ContentProps>`
       opacity: 0;
       animation: ${({ isIntersecting }) => (isIntersecting ? fadeInUp : 'none')}
         1200ms var(--custom-ease);
-      animation-delay: 700ms;
+      animation-delay: ${({ animationDelay }) =>
+        animationDelay ? `${animationDelay + 700}ms` : '700ms'};
       animation-fill-mode: forwards;
     }
 

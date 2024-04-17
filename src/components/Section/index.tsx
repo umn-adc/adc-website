@@ -17,6 +17,7 @@ interface SectionProps extends HTMLProps<HTMLDivElement> {
   bottomDecorator?: ReactNode;
   scrollReveal?: boolean;
   disableScrollTimeline?: boolean;
+  animationDelay?: number;
 }
 
 const Section: React.FC<SectionProps> = ({
@@ -28,6 +29,7 @@ const Section: React.FC<SectionProps> = ({
   bottomDecorator,
   scrollReveal,
   disableScrollTimeline,
+  animationDelay,
   ...props
 }) => {
   const { isIntersecting, ref: obsRef } = useIntersectionObserver({
@@ -47,6 +49,7 @@ const Section: React.FC<SectionProps> = ({
       <TopDecoratorContainer>{topDecorator}</TopDecoratorContainer>
       <Container alt={secondary}>
         <Content
+          animationDelay={animationDelay}
           ref={obsRef}
           isIntersecting={
             !scrollReveal || hasRevealed.current || isIntersecting
@@ -69,6 +72,7 @@ Section.defaultProps = {
   bottomDecorator: undefined,
   scrollReveal: false,
   disableScrollTimeline: false,
+  animationDelay: 0,
 };
 
 export default Section;

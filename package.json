@@ -1,7 +1,7 @@
 {
   "name": "adc-website",
   "version": "1.0.0",
-  "homepage": "http://adcumn.com",
+  "homepage": "https://adcumn.com",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^6.4.2",

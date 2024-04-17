@@ -9,10 +9,15 @@ import {
   FaYoutube,
 } from 'react-icons/fa';
 import { scroller } from 'react-scroll';
+import rtr from 'routes/router';
 import { Container, Divider, FooterLink, FooterLinkContainer } from './styles';
 import FooterSocialLink from './FooterSocialLink';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  router: typeof rtr;
+}
+
+const Footer: React.FC<FooterProps> = ({ router }) => {
   return (
     <Container>
       <img
@@ -22,8 +27,22 @@ const Footer: React.FC = () => {
         style={{ filter: 'grayscale()', opacity: 0.4 }}
       />
       <FooterLinkContainer>
-        <FooterLink href="/">Home</FooterLink>
-        <FooterLink href="/challenges">Challenges</FooterLink>
+        <FooterLink
+          onClick={(e) => {
+            e.preventDefault();
+            router.navigate('/');
+          }}
+        >
+          Home
+        </FooterLink>
+        <FooterLink
+          onClick={(e) => {
+            e.preventDefault();
+            router.navigate('/challenges');
+          }}
+        >
+          Challenges
+        </FooterLink>
         <FooterLink
           onClick={() => {
             scroller.scrollTo('boardSection', {

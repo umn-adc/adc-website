@@ -2,9 +2,14 @@ import React from 'react';
 import ADCLogo from 'assets/images/ADC_Logo_Blue.png';
 import { FaGithub } from 'react-icons/fa';
 import { scroller } from 'react-scroll';
+import rtr from 'routes/router';
 import { Container, HeaderLink, HomeLink, Menu } from './styles';
 
-const Header = () => {
+interface HeaderProps {
+  router: typeof rtr;
+}
+
+const Header: React.FC<HeaderProps> = ({ router }) => {
   return (
     <Container>
       <HomeLink href="/">
@@ -13,14 +18,14 @@ const Header = () => {
       <Menu>
         <HeaderLink
           onClick={() => {
-            window.location.href = '/';
+            router.navigate('/');
           }}
         >
           Home
         </HeaderLink>
         <HeaderLink
           onClick={() => {
-            window.location.href = '/challenges';
+            router.navigate('/challenges');
           }}
         >
           Challenges

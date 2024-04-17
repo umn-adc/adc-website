@@ -15,11 +15,11 @@ const App: React.FC = () => {
       id="outer-container"
     >
       <Sidebar pageWrapId="page-wrap" outerContainerId="outer-container" />
-      <Header />
+      <Header router={router} />
       <RouteContainer>
         <RouterProvider router={router} />
       </RouteContainer>
-      <Footer />
+      <Footer router={router} />
     </AppContainer>
   );
 };

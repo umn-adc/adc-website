@@ -1,10 +1,10 @@
-import Victor from 'assets/images/victor.png';
+import Victor from 'assets/images/victor.jpg';
 import Gideon from 'assets/images/gideon.jpg';
 import Liem from 'assets/images/liem.jpg';
 import Johnny from 'assets/images/johnny.jpg';
-import Dhruv from 'assets/images/dhruv.jpg';
-import Shreya from 'assets/images/shreya.jpg';
-import Akanksha from 'assets/images/akanksha.jpg';
+import Akshat from 'assets/images/akshat.jpg';
+import Daniel from 'assets/images/daniel.jpg';
+import Helen from 'assets/images/helen.jpg';
 import Lennon from 'assets/images/lennon.jpg';
 
 export interface OfficerProfile {
@@ -16,23 +16,23 @@ export interface OfficerProfile {
 
 const board = [
   {
-    name: 'Gideon',
+    name: 'Victor',
     position: 'President',
-    picture: Gideon,
-    message: 'I am very tall',
-  },
+    picture: Victor,
+    message: 'I made this! 😎',
+  }, // 🤫🧏‍♂️
   {
     name: 'Liem',
-    position: 'Vice-President',
+    position: 'Treasurer',
     picture: Liem,
     message: 'Least toxic TFT player',
   },
   {
-    name: 'Victor',
-    position: 'Tech Lead',
-    picture: Victor,
-    message: 'I made this! 😎',
-  }, // 🤫🧏‍♂️
+    name: 'Gideon',
+    position: 'Advisor',
+    picture: Gideon,
+    message: 'I am very tall',
+  },
   {
     name: 'Lennon',
     position: 'Marketing Director',
@@ -43,26 +43,25 @@ const board = [
     name: 'Johnny',
     position: 'Event Coordinator',
     picture: Johnny,
-    message:
-      '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0, \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0?           \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0\u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0 \u00A0\u00A0\u00A0\u00A0\u00A0!!',
+    message: 'winton',
   },
   {
-    name: 'Akanksha',
-    position: 'Event Coordinator',
-    picture: Akanksha,
-    message: 'What Johnny said',
+    name: 'Helen',
+    position: 'External Relations',
+    picture: Helen,
+    message: 'The best way to predict the future is to create it',
   },
   {
-    name: 'Shreya',
-    position: 'Treasurer',
-    picture: Shreya,
-    message: 'Slaya',
+    name: 'Daniel',
+    position: 'Secretary',
+    picture: Daniel,
+    message: 'I like big ducks and I cannot lie',
   },
   {
-    name: 'Dhruv',
-    position: 'Workshop Instructor',
-    picture: Dhruv,
-    message: 'Assassins Creed enjoyer idk',
+    name: 'Akshat',
+    position: 'Co-Treasurer',
+    picture: Akshat,
+    message: '???????',
   },
 ];
 

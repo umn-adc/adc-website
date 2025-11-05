@@ -1,1 +1,12 @@
 text=auto eol=lf
+# Enforce LF in the repository to avoid CRLF-related Prettier errors
+* text=auto eol=lf
+
+# Optional: treat these files as text and ensure LF
+*.ts text
+*.tsx text
+*.js text
+*.jsx text
+*.css text
+*.json text
+*.md text

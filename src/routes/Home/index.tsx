@@ -12,6 +12,7 @@ import GTMeeting from 'assets/images/gt meeting.jpg';
 import { ProfileContainer, ProjectsContainer } from 'styles';
 import ProjectProfile from 'components/ProjectProfile';
 import projects from 'data/projects';
+import pastProjects from 'data/pastprojects';
 import { Element } from 'react-scroll';
 
 const Home = () => {
@@ -67,6 +68,25 @@ const Home = () => {
       >
         <ProjectsContainer>
           {projects.map(({ name, icon, link }, index) => (
+            <ProjectProfile
+              key={name}
+              title={name}
+              icon={icon}
+              link={link}
+              style={{ animationDelay: `${1200 + index * 150}ms` }}
+            />
+          ))}
+        </ProjectsContainer>
+      </Section>
+      <Section
+        disableScrollTimeline
+        scrollReveal
+        secondary
+        title="Past Projects"
+        description="" // can add description
+      >
+        <ProjectsContainer>
+          {pastProjects.map(({ name, icon, link }, index) => (
             <ProjectProfile
               key={name}
               title={name}

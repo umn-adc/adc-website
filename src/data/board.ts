@@ -1,8 +1,8 @@
 import Victor from 'assets/images/victor.jpg';
 import Johnny from 'assets/images/johnny.jpg';
 import Qise from 'assets/images/qise.jpg';
-import Kieran from 'assets/images/kieran.jpg'
-import Slash from 'assets/images/slash.png'
+import Kieran from 'assets/images/kieran.jpg';
+import Slash from 'assets/images/slash.png';
 
 export interface OfficerProfile {
   name: string;
@@ -22,7 +22,7 @@ const board = [
     name: 'Alex',
     position: 'Vice President',
     picture: Slash,
-    message: 'This is alex'
+    message: 'This is alex',
   },
   {
     name: 'Qise',
@@ -41,7 +41,7 @@ const board = [
     position: 'Officer',
     picture: Kieran,
     message: '🙆',
-  }
+  },
 ];
 
 export default board;

@@ -1,11 +1,11 @@
-import GtIcon from 'assets/images/gt.png';
+import Slash from 'assets/images/slash.png';
 
 const projects = [
   {
-    name: 'GopherTunnels',
-    icon: GtIcon,
-    link: 'https://github.com/gopher-tunnels',
-  },
+    name: 'GopherFit',
+    icon: Slash, // change to GopherFit icon when made
+    link: 'https://github.com/umn-adc', // make it link to gopherfit when repo becomes public
+  }
 ];
 
 export default projects;

@@ -3,6 +3,7 @@ import Johnny from 'assets/images/johnny.jpg';
 import Qise from 'assets/images/qise.jpg';
 import Kieran from 'assets/images/kieran.jpg';
 import Alex from 'assets/images/alex.jpg';
+import Agness from 'assets/images/agness.jpg';
 
 export interface OfficerProfile {
   name: string;
@@ -41,6 +42,12 @@ const board = [
     position: 'Officer',
     picture: Kieran,
     message: '🙆',
+  },
+  {
+    name: 'Agness',
+    position: 'Marketing Lead',
+    picture: Agness,
+    message: 'Hi',
   },
 ];
 

@@ -47,7 +47,7 @@ const board = [
     name: 'Agness',
     position: 'Marketing Lead',
     picture: Agness,
-    message: 'Hi',
+    message: 'Tmr is another day',
   },
 ];
 

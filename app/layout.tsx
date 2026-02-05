@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { ReactLenis } from 'lenis/react'
 import { SmoothCursor } from "@/components/ui/smooth-cursor"
+import { Toaster } from "@/components/ui/sonner"
 
 const _outfit = Outfit({ 
   subsets: ["latin"],
@@ -58,6 +59,7 @@ export default function RootLayout({
         <ReactLenis root>
           <SmoothCursor disableRotation/>
           {children}
+          <Toaster />
           <Analytics />
         </ReactLenis>
       </body>

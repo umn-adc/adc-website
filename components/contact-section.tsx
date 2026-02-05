@@ -2,12 +2,13 @@
 
 import React from "react"
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 import {
   Mail,
   MessageSquare,
@@ -16,6 +17,7 @@ import {
   Linkedin,
   Instagram,
   CheckCircle2,
+  XCircle,
 } from "lucide-react";
 import { ContactLinkCard } from "@/components/ui/contact-link-card";
 
@@ -43,12 +45,60 @@ const contactLinks = [
 export function ContactSection() {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    return () => {
+      if (resetTimerRef.current) {
+        clearTimeout(resetTimerRef.current);
+      }
+    };
+  }, []);
+
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3000);
+    if (status === "loading") return;
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const payload = Object.fromEntries(
+      ["name", "email", "subject", "message", "website"].map((key) => [
+        key,
+        String(formData.get(key) ?? ""),
+      ]),
+    );
+
+    setStatus("loading");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        form.reset();
+        toast.success("Message sent! We'll be in touch soon.");
+        setStatus("success");
+      } else {
+        const data = await res.json().catch(() => ({}));
+        toast.error(data?.error ?? "Failed to send message. Please try again.");
+        setStatus("error");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to send message. Please try again.");
+      setStatus("error");
+    }
+
+    if (resetTimerRef.current) {
+      clearTimeout(resetTimerRef.current);
+    }
+    resetTimerRef.current = setTimeout(() => setStatus("idle"), 3000);
+
   };
 
   return (
@@ -176,13 +226,21 @@ export function ContactSection() {
           >
             <div className="bg-background rounded-3xl p-8 shadow-2xl">
               <form onSubmit={handleSubmit} className="space-y-6">
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="hidden"
+                />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="font-sans text-foreground">
                       Name
                     </Label>
                     <Input
-                      id="name"
+                      id="name" name="name"
                       placeholder="Your name"
                       className="rounded-xl font-serif h-12"
                       required
@@ -196,7 +254,7 @@ export function ContactSection() {
                       Email
                     </Label>
                     <Input
-                      id="email"
+                      id="email" name="email"
                       type="email"
                       placeholder="you@umn.edu"
                       className="rounded-xl font-serif h-12"
@@ -213,7 +271,7 @@ export function ContactSection() {
                     Subject
                   </Label>
                   <Input
-                    id="subject"
+                    id="subject" name="subject"
                     placeholder="What's this about?"
                     className="rounded-xl font-serif h-12"
                     required
@@ -228,7 +286,7 @@ export function ContactSection() {
                     Message
                   </Label>
                   <Textarea
-                    id="message"
+                    id="message" name="message"
                     placeholder="Tell us more..."
                     className="rounded-xl font-serif min-h-[150px] resize-none"
                     required
@@ -238,14 +296,23 @@ export function ContactSection() {
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-sans font-semibold rounded-full h-12 group"
-                  disabled={isSubmitted}
+                  variant={status === "error" ? "destructive" : "default"}
+                  className="w-full font-sans font-semibold rounded-full h-12 group"
+                  loading={status === "loading"}
+                  disabled={status !== "idle"}
                 >
-                  {isSubmitted ? (
+                  {status === "success" ? (
                     <>
                       <CheckCircle2 className="mr-2 w-5 h-5" />
                       Message Sent!
                     </>
+                  ) : status === "error" ? (
+                    <>
+                      <XCircle className="mr-2 w-5 h-5" />
+                      Failed to Send
+                    </>
+                  ) : status === "loading" ? (
+                    <>Sending...</>
                   ) : (
                     <>
                       Send Message

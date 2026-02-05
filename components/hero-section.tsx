@@ -43,6 +43,7 @@ function HeroStar() {
   return (
     <motion.div
       ref={ref}
+      id="hero"
       className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden"
       style={{ scale, opacity }}
     >

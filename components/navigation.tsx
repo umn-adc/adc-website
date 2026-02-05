@@ -6,15 +6,18 @@ import { ADCLogo } from "./ui/adc-logo";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import Magnet from "@/components/ui/Magnet";
+import Link from "next/link";
+import { useLenis } from "lenis/react";
 
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#events", label: "Events" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#events", label: "Events" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function Navigation() {
+  const lenis = useLenis();
   const [isPastHero, setIsPastHero] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -48,9 +51,9 @@ export function Navigation() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <a href="#" className="shrink-0">
+            <Link href="/" className="shrink-0" onClick={() => {lenis?.scrollTo(0)}}>
               <ADCLogo animate={false} variant={isPastHero ? "full" : "light"} />
-            </a>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">

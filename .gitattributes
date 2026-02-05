@@ -10,3 +10,6 @@ text=auto eol=lf
 *.css text
 *.json text
 *.md text
+
+*.glb binary
+*.gltf text

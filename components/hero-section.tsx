@@ -227,6 +227,9 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.7 }}
         >
           <Button
+            as="a"
+            href="https://z.umn.edu/adc-discord"
+            target="_blank"
             size="lg"
             className="bg-white hover:bg-white/90 text-indigo font-sans font-semibold rounded-full px-8 py-6 text-lg group"
           >
@@ -234,11 +237,14 @@ export function HeroSection() {
             <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
           </Button>
           <Button
+            as="a"
+            href="/officers"
+            // onClick={() => router.push('/officers')}
             variant="outline"
             size="lg"
             className="font-sans font-semibold rounded-full px-8 py-6 text-lg border-2 border-white/30 text-white hover:bg-white/10 bg-transparent"
           >
-            View Projects
+            Meet the team
           </Button>
         </motion.div>
 

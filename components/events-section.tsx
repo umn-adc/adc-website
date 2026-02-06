@@ -124,6 +124,8 @@ export function EventsSection() {
           transition={{ duration: 0.5, delay: 0.5 }}
         >
           <Button
+            as="a"
+            href="https://z.umn.edu/adc-gopherlink-events"
             variant="outline"
             size="lg"
             className="font-sans font-semibold rounded-full px-8 border-2 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all bg-transparent"

@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { Navigation } from "@/components/navigation";
-import { Footer } from "@/components/footer";
 import LanyardScroller from "@/components/officers/lanyard-scroller";
 
 export const metadata: Metadata = {
@@ -45,8 +43,6 @@ const officers = [
 export default function OfficersPage() {
   return (
     <main className="relative">
-      <Navigation />
-
       <section className="relative z-10 overflow-hidden bg-indigo text-white pt-28 md:pt-36 pb-16 md:pb-24">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(198,235,247,0.25),transparent_50%)]" />
@@ -72,8 +68,6 @@ export default function OfficersPage() {
       <section className="relative z-0 -mt-16 md:-mt-24 pt-0 pb-0 bg-transparent">
         <LanyardScroller officers={officers} />
       </section>
-
-      <Footer />
     </main>
   );
 }

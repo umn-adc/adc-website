@@ -6,6 +6,8 @@ import './globals.css'
 import { ReactLenis } from 'lenis/react'
 import { SmoothCursor } from "@/components/ui/smooth-cursor"
 import { Toaster } from "@/components/ui/sonner"
+import { Navigation } from "@/components/navigation"
+import { Footer } from "@/components/footer"
 
 const _outfit = Outfit({ 
   subsets: ["latin"],
@@ -58,7 +60,9 @@ export default function RootLayout({
       <body className={`${_outfit.variable} ${_atkinson.variable} font-sans antialiased`}>
         <ReactLenis root>
           <SmoothCursor disableRotation/>
+          <Navigation />
           {children}
+          <Footer />
           <Toaster />
           <Analytics />
         </ReactLenis>

@@ -8,6 +8,9 @@ import { Menu, X } from "lucide-react";
 import Magnet from "@/components/ui/Magnet";
 import Link from "next/link";
 import { useLenis } from "lenis/react";
+import { useAnchorLink } from "@/hooks/use-anchor-link";
+
+const MotionLink = motion.create(Link);
 
 const navLinks = [
   { href: "/#about", label: "About" },
@@ -18,6 +21,7 @@ const navLinks = [
 
 export function Navigation() {
   const lenis = useLenis();
+  const onAnchorClick = useAnchorLink();
   const [isPastHero, setIsPastHero] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -59,16 +63,17 @@ export function Navigation() {
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link, index) => (
                 <Magnet key={link.href}>
-                  <motion.a
+                  <MotionLink
                     href={link.href}
                     className={`font-sans text-sm font-medium transition-colors relative group ${textColor}`}
+                    onClick={onAnchorClick}
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: index * 0.1 }}
                   >
                     {link.label}
                     <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${isPastHero ? "bg-primary" : "bg-white"}`} />
-                  </motion.a>
+                  </MotionLink>
                 </Magnet>
               ))}
               <motion.div
@@ -76,7 +81,10 @@ export function Navigation() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.5 }}
               >
-                <Button className={`font-sans font-medium rounded-full px-6 cursor-pointer ${isPastHero ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-white hover:bg-white/90 text-indigo"}`}>
+                <Button
+                  as="a"
+                  href="https://z.umn.edu/adc-discord"
+                  className={`font-sans font-medium rounded-full px-6 cursor-pointer ${isPastHero ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-white hover:bg-white/90 text-indigo"}`}>
                   Join Us
                 </Button>
               </motion.div>
@@ -122,17 +130,20 @@ export function Navigation() {
               transition={{ duration: 0.3 }}
             >
               {navLinks.map((link, index) => (
-                <motion.a
+                <MotionLink
                   key={link.href}
                   href={link.href}
                   className="font-sans text-2xl font-semibold text-foreground hover:text-primary transition-colors cursor-pointer"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(event) => {
+                    onAnchorClick(event);
+                    setIsMobileMenuOpen(false);
+                  }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                 >
                   {link.label}
-                </motion.a>
+                </MotionLink>
               ))}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -140,6 +151,8 @@ export function Navigation() {
                 transition={{ duration: 0.3, delay: 0.5 }}
               >
                 <Button
+                  as="a"
+                  href="https://z.umn.edu/adc-discord"
                   className="bg-primary hover:bg-primary/90 text-primary-foreground font-sans font-medium rounded-full px-8 py-6 text-lg cursor-pointer"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >

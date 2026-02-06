@@ -21,6 +21,7 @@ type ProjectStats = { users: number; rating: number };
 type ProjectBase = {
   id: string | number | symbol;
   title: string;
+  link?: string;
   description: string;
   tags: ProjectTag[];
   type: ProjectType;

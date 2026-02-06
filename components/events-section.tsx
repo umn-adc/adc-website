@@ -7,20 +7,26 @@ import EventCard, { type EventItem } from "@/components/ui/event-card";
 import FeaturedEvent from "@/components/ui/featured-event";
 import { Calendar } from "lucide-react";
 
-const events: EventItem[] = [
+type EventItemSerialized = Omit<EventItem, "date"> & { date: string };
+
+type EventsSectionProps = {
+  events?: EventItemSerialized[];
+};
+
+const fallbackEvents: EventItem[] = [
   {
-    id: 1,
+    id: 'react-native-workshop',
     title: "React Native Workshop",
     description:
       "Build your first mobile app from scratch. Learn navigation, state management, and deployment.",
     date: new Date(2026, 1, 15, 18, 0),
     location: "Keller Hall 3-210",
     attendees: 45,
-    type: "codeWorkshop",
+    type: "codingWorkshop",
     featured: true,
   },
   {
-    id: 2,
+    id: 'design-systems-deep-dive',
     title: "Design Systems Deep Dive",
     description:
       "Create consistent, scalable UI components. From tokens to documentation.",
@@ -31,7 +37,7 @@ const events: EventItem[] = [
     featured: false,
   },
   {
-    id: 3,
+    id: 'industry-panel--breaking-into-tech',
     title: "Industry Panel: Breaking into Tech",
     description:
       "Engineers from top companies share their journey and tips for landing your first role.",
@@ -43,9 +49,21 @@ const events: EventItem[] = [
   },
 ];
 
-export function EventsSection() {
+export function EventsSection({ events }: EventsSectionProps) {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  const resolvedEvents =
+    events && events.length > 0
+      ? events.map((event) => ({
+          ...event,
+          date: new Date(event.date),
+        }))
+      : fallbackEvents;
+  const featuredEvent =
+    resolvedEvents.find((event) => event.featured) ?? resolvedEvents[0];
+  const otherEvents = featuredEvent
+    ? resolvedEvents.filter((event) => event.id !== featuredEvent.id)
+    : [];
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -108,10 +126,10 @@ export function EventsSection() {
         {/* Events Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Featured Event - Takes 2 columns */}
-          <FeaturedEvent event={events[0]} />
+          {featuredEvent ? <FeaturedEvent event={featuredEvent} /> : null}
 
           {/* Other Events */}
-          {events.slice(1).map((event, index) => (
+          {otherEvents.map((event, index) => (
             <EventCard key={event.id} event={event} index={index} />
           ))}
         </div>

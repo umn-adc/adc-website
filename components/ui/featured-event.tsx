@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +19,10 @@ const FeaturedEvent: React.FC<FeaturedEventProps> = ({event}) => {
   const eventTime = event.date.toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "2-digit",
+  });
+
+  useEffect(() => {
+    console.log('event:', event)
   });
 
   return (
@@ -91,13 +95,17 @@ const FeaturedEvent: React.FC<FeaturedEventProps> = ({event}) => {
           </div>
 
           {/* CTA */}
-          <Button
-            size="lg"
-            className="bg-white text-primary hover:bg-white/90 font-sans font-semibold rounded-full px-8 group"
-          >
-            Register Now
-            <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </Button>
+          {
+            !!event.link && <Button
+              as="a"
+              href={event.link}
+              size="lg"
+              className="bg-white text-primary hover:bg-white/90 font-sans font-semibold rounded-full px-8 group"
+            >
+              Register Now
+              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          }
         </div>
       </div>
     </motion.div>

@@ -1,17 +1,21 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useInView } from "motion/react";
-import { Button } from "@/components/ui/button";
+import {useRef, useState} from "react";
+import {motion, useInView} from "motion/react";
+import {Button} from "@/components/ui/button";
 import {
   ArrowUpRight,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
 import ProjectCard from "./ui/project-card";
-import type { Project } from '@/components/ui/project-card';
+import type {Project} from "@/components/ui/project-card";
 
-const projects: Project[] = [
+type ProjectsSectionProps = {
+  projects?: Project[];
+};
+
+const fallbackProjects: Project[] = [
   {
     id: 'gt',
     title: "GopherTunnels",
@@ -36,11 +40,12 @@ const projects: Project[] = [
   },
 ];
 
-export function ProjectsSection() {
+export function ProjectsSection({projects}: ProjectsSectionProps) {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const projectItems = projects && projects.length > 0 ? projects : fallbackProjects;
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
@@ -139,7 +144,7 @@ export function ProjectsSection() {
           className="overflow-x-auto overflow-y-hidden scrollbar-hide -mx-4 px-4 snap-x snap-mandatory box-border"
         >
           <div className="flex gap-6 overflow-visible py-4">
-            {projects.map((project, index) => (
+            {projectItems.map((project, index) => (
               <ProjectCard
                 key={project.id}
                 project={project}

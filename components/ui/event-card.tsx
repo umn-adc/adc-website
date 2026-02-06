@@ -10,10 +10,12 @@ import {
   Presentation,
   Users,
 } from "lucide-react";
+import Link from "next/link";
 
 export type EventItem = {
-  id: number;
+  id: string;
   title: string;
+  link?: string;
   description: string;
   date: Date;
   location: string;
@@ -23,7 +25,7 @@ export type EventItem = {
 }
 
 export const eventTypeData = {
-  codeWorkshop: {label: "Workshop", icon: Code},
+  codingWorkshop: {label: "Workshop", icon: Code},
   designWorkshop: {label: "Workshop", icon: Palette},
   panel: {label: "Panel", icon: Presentation},
 } as const;
@@ -31,6 +33,8 @@ export const eventTypeData = {
 export type EventType = keyof typeof eventTypeData;
 
 type EventCardProps = {event: EventItem; index: number;}
+
+const MotionLink = motion.create(Link);
 
 const EventCard: React.FC<EventCardProps> = ({event, index}) => {
   const ref = useRef(null);
@@ -92,12 +96,15 @@ const EventCard: React.FC<EventCardProps> = ({event, index}) => {
         </div>
 
         {/* Hover Arrow */}
-        <motion.div
-          className="absolute bottom-6 right-6 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-          whileHover={{ scale: 1.1 }}
-        >
-          <ArrowRight className="w-4 h-4 text-primary" />
-        </motion.div>
+        {
+          !!event.link && <MotionLink
+            href={event.link}
+            className="absolute bottom-6 right-6 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+            whileHover={{ scale: 1.1 }}
+          >
+            <ArrowRight className="w-4 h-4 text-primary" />
+          </MotionLink>
+        }
       </div>
     </motion.div>
   );

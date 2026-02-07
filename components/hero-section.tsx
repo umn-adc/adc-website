@@ -13,7 +13,7 @@ import { ArrowRight, Code2, Lectern, Users } from "lucide-react";
 import { AnimatedStar } from "@/components/ui/animated-star";
 import CountUp from "./ui/count-up";
 
-// Floating code snippets for background - ADC themed commands
+// Floating code snippets for background
 const codeSnippets = [
   { code: "git commit -m 'adc!'", x: "8%", y: "18%", delay: 0 },
   { code: "<ADC />", x: "82%", y: "12%", delay: 0.3 },
@@ -29,7 +29,7 @@ const codeSnippets = [
   { code: "const ship = () => {...}", x: "25%", y: "30%", delay: 2.3 },
 ];
 
-// Large animated North Star for hero - using real ADC star asset
+// Large animated star logo for hero
 function HeroStar() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -49,7 +49,7 @@ function HeroStar() {
     >
       <motion.img
         src="/adc-star-white.svg"
-        alt=""
+        alt="ADC star logo"
         className="w-[500px] h-[500px] md:w-[700px] md:h-[700px] object-contain"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -59,7 +59,7 @@ function HeroStar() {
   );
 }
 
-// Floating orbs for depth - now with white/lighter tones for indigo background
+// Floating orbs for depth
 function FloatingOrbs() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">

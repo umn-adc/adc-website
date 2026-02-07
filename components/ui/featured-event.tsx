@@ -45,7 +45,7 @@ const FeaturedEvent: React.FC<FeaturedEventProps> = ({event}) => {
               ease: "linear",
             }}
           >
-            <img src="/adc-star-white.svg" />
+            <img src="/adc-star-white.svg" alt="ADC star logo" />
           </motion.div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,255,255,0.1),transparent_50%)]" />
         </div>

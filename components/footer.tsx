@@ -121,7 +121,7 @@ export function Footer() {
               ease: "linear",
             }}
           >
-           <img src="/adc-star-indigo.svg" className="w-6 h-6" /> 
+           <img src="/adc-star-indigo.svg" alt="ADC star logo" className="w-6 h-6" /> 
           </motion.div>
 
           <Magnet>

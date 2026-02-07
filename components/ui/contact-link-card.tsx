@@ -37,8 +37,8 @@ export function ContactLinkCard({
       transition={{ type: "spring", stiffness: 320, damping: 22 }}
       aria-label={`${label} ${value}`}
     >
-      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20 transition-colors group-hover:bg-primary/30">
-        <Icon className="h-5 w-5 text-primary transition-colors group-hover:text-primary" />
+      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/30 transition-colors group-hover:bg-primary/40">
+        <Icon className="h-5 w-5 text-secondary transition-colors group-hover:text-secondary" />
       </div>
       <div>
         <p className="font-sans text-sm text-primary-foreground/60">{label}</p>

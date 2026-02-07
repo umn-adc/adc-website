@@ -120,7 +120,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({project, index, isActive}) => 
               ease: "linear",
             }}
           >
-            <img src="/adc-star-white.svg"/>
+            <img src="/adc-star-white.svg" alt="ADC star logo" />
           </motion.div>}
         </div>
 

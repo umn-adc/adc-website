@@ -135,7 +135,7 @@ export function AboutSection() {
                 ease: "linear",
               }}
             >
-             <img src="/adc-star-white.svg" alt="" className="w-24 h-24 opacity-100 contrast-0" /> 
+             <img src="/adc-star-white.svg" alt="ADC star logo" className="w-24 h-24 opacity-100 contrast-0" /> 
             </motion.div>
           </div>
         </motion.div>

@@ -37,8 +37,8 @@ const contactLinks = [
   {
     icon: MessageSquare,
     label: "Join our Discord",
-    value: "discord.gg/XCqJEbv",
-    href: "https://discord.gg/XCqJEbv",
+    value: "z.umn.edu/adc-discord",
+    href: "https://z.umn.edu/adc-discord",
   },
 ];
 
@@ -131,7 +131,7 @@ export function ContactSection() {
               repeat: Number.POSITIVE_INFINITY,
             }}
           >
-           <img src="/adc-star-white.svg" className="w-6 h-6"/> 
+           <img src="/adc-star-white.svg" alt="twinkling ADC star logo" className="w-6 h-6"/> 
           </motion.div>
         ))}
       </div>
@@ -144,9 +144,9 @@ export function ContactSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/30 mb-6"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/30 border border-primary/50 mb-6"
             >
-              <span className="font-mono text-sm text-primary">
+              <span className="font-mono text-sm text-secondary">
                 {"// get in touch"}
               </span>
             </motion.div>
@@ -157,7 +157,7 @@ export function ContactSection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <span className="text-balance">
+                <span className="text-balance">
                 Ready to start{" "}
                 <span className="text-primary">building?</span>
               </span>

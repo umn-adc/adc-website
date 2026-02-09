@@ -4,6 +4,7 @@ import { FC, useEffect, useRef, useState } from "react"
 
 type HoverTarget = "button" | "a" | "input" | null
 
+const RESTING_ROTATION = -35
 const CURSOR_TIP_X = 50
 const CURSOR_TIP_Y = 12
 
@@ -129,7 +130,7 @@ export function SmoothCursor({
         position: "fixed",
         left: 0,
         top: 0,
-        transform: `translate(-${CURSOR_TIP_X}%, -${CURSOR_TIP_Y}%) rotate(-35deg)`,
+        transform: `translate(-${CURSOR_TIP_X}%, -${CURSOR_TIP_Y}%) rotate(${RESTING_ROTATION}deg)`,
         zIndex: 100,
         pointerEvents: "none",
       }}

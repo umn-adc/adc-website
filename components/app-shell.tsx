@@ -10,17 +10,33 @@ import { Footer } from "@/components/footer"
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const isStudio = pathname?.startsWith("/studio")
+  const [isCustomCursorEnabled, setIsCustomCursorEnabled] = React.useState(false)
 
   React.useEffect(() => {
     const root = document.documentElement
     if (isStudio) {
       root.classList.remove("smooth-cursor-active")
+      setIsCustomCursorEnabled(false)
       return
     }
 
-    root.classList.add("smooth-cursor-active")
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)")
+    const syncCursorMode = (matches: boolean) => {
+      setIsCustomCursorEnabled(matches)
+      root.classList.toggle("smooth-cursor-active", matches)
+    }
+
+    syncCursorMode(mediaQuery.matches)
+    const onChange = (event: MediaQueryListEvent) => {
+      syncCursorMode(event.matches)
+    }
+
+    mediaQuery.addEventListener("change", onChange)
+
     return () => {
+      mediaQuery.removeEventListener("change", onChange)
       root.classList.remove("smooth-cursor-active")
+      setIsCustomCursorEnabled(false)
     }
   }, [isStudio])
 
@@ -30,7 +46,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <ReactLenis root>
-      <SmoothCursor disableRotation />
+      {isCustomCursorEnabled ? <SmoothCursor disableRotation /> : null}
       <Navigation />
       {children}
       <Footer />

@@ -16,6 +16,7 @@ const CURSOR_TIP_Y = 12
 
 export interface SmoothCursorProps {
   cursor?: React.ReactNode
+  smooth?: boolean
   springConfig?: {
     damping: number
     stiffness: number
@@ -91,6 +92,7 @@ const DefaultCursorSVG: FC = () => {
 
 export function SmoothCursor({
   cursor = <DefaultCursorSVG />,
+  smooth = false,
   springConfig = {
     damping: 45,
     stiffness: 400,
@@ -101,6 +103,7 @@ export function SmoothCursor({
 }: SmoothCursorProps) {
   const [isMoving, setIsMoving] = useState(false)
   const [hoveredTarget, setHoveredTarget] = useState<HoverTarget>(null)
+  const cursorRef = useRef<HTMLDivElement>(null)
   const lastMousePos = useRef<Position>({ x: 0, y: 0 })
   const velocity = useRef<Position>({ x: 0, y: 0 })
   const lastUpdateTime = useRef(Date.now())
@@ -129,6 +132,30 @@ export function SmoothCursor({
   }, [disableRotation, rotation])
 
   useEffect(() => {
+    if (!smooth) {
+      const handleMouseMove = (e: MouseEvent) => {
+        const targetElement = e.target instanceof Element ? e.target : null
+        const isInput = Boolean(targetElement?.closest("input, textarea, select"))
+        const isButton = Boolean(targetElement?.closest("button, a"))
+        const nextTarget: HoverTarget = isInput ? "input" : isButton ? "button" : null
+
+        if (hoveredTargetRef.current !== nextTarget) {
+          hoveredTargetRef.current = nextTarget
+          setHoveredTarget(nextTarget)
+        }
+
+        if (cursorRef.current) {
+          cursorRef.current.style.left = `${e.clientX}px`
+          cursorRef.current.style.top = `${e.clientY}px`
+        }
+      }
+
+      window.addEventListener("mousemove", handleMouseMove)
+      return () => {
+        window.removeEventListener("mousemove", handleMouseMove)
+      }
+    }
+
     const updateVelocity = (currentPos: Position) => {
       const currentTime = Date.now()
       const deltaTime = currentTime - lastUpdateTime.current
@@ -208,10 +235,10 @@ export function SmoothCursor({
       window.removeEventListener("mousemove", throttledMouseMove)
       if (rafId) cancelAnimationFrame(rafId)
     }
-  }, [cursorX, cursorY, rotation, scale, disableRotation])
+  }, [smooth, cursorX, cursorY, rotation, scale, disableRotation])
 
   const isInteractive = hoveredTarget !== null
-  const cursorStyle: React.CSSProperties = {
+  const cursorStyle: React.CSSProperties & Record<string, string> = {
     "--cursor-fill":
       hoveredTarget === "button" ? "var(--primary)" : "#1f1f1f",
     "--cursor-stroke":
@@ -224,30 +251,48 @@ export function SmoothCursor({
     transition: "filter 180ms ease, transform 180ms ease",
   }
 
+  if (smooth) {
+    return (
+      <motion.div
+        style={{
+          position: "fixed",
+          left: cursorX,
+          top: cursorY,
+          translateX: `-${CURSOR_TIP_X}%`,
+          translateY: `-${CURSOR_TIP_Y}%`,
+          rotate: rotation,
+          scale: scale,
+          transformOrigin: `${CURSOR_TIP_X}% ${CURSOR_TIP_Y}%`,
+          zIndex: 100,
+          pointerEvents: "none",
+          willChange: "transform",
+        }}
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 400,
+          damping: 30,
+        }}
+      >
+        <div style={cursorStyle}>{cursor}</div>
+      </motion.div>
+    )
+  }
+
   return (
-    <motion.div
+    <div
+      ref={cursorRef}
       style={{
         position: "fixed",
-        left: cursorX,
-        top: cursorY,
-        translateX: `-${CURSOR_TIP_X}%`,
-        translateY: `-${CURSOR_TIP_Y}%`,
-        rotate: rotation,
-        scale: scale,
-        transformOrigin: `${CURSOR_TIP_X}% ${CURSOR_TIP_Y}%`,
+        left: 0,
+        top: 0,
+        transform: `translate(-${CURSOR_TIP_X}%, -${CURSOR_TIP_Y}%) rotate(${RESTING_ROTATION}deg)`,
         zIndex: 100,
         pointerEvents: "none",
-        willChange: "transform",
-      }}
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{
-        type: "spring",
-        stiffness: 400,
-        damping: 30,
       }}
     >
       <div style={cursorStyle}>{cursor}</div>
-    </motion.div>
+    </div>
   )
 }

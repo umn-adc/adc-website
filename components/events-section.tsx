@@ -5,6 +5,7 @@ import { motion, useInView, useScroll, useTransform } from "motion/react";
 import { Button } from "@/components/ui/button";
 import EventCard, { type EventItem } from "@/components/ui/event-card";
 import FeaturedEvent from "@/components/ui/featured-event";
+import SectionChip from "@/components/ui/section-chip";
 import { Calendar } from "lucide-react";
 
 type EventItemSerialized = Omit<EventItem, "date"> & { date: string };
@@ -89,16 +90,10 @@ export function EventsSection({ events }: EventsSectionProps) {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-2xl mb-12 md:mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary border border-primary/10 mb-6"
-          >
-            <span className="font-mono text-sm text-primary">
-              {"// upcoming events"}
-            </span>
-          </motion.div>
+          <SectionChip
+            label="upcoming events"
+            className="mb-6"
+          />
 
           <motion.h2
             className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight mb-4"

@@ -20,6 +20,7 @@ import {
   XCircle,
 } from "lucide-react";
 import { ContactLinkCard } from "@/components/ui/contact-link-card";
+import SectionChip from "@/components/ui/section-chip";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/umn-adc", label: "GitHub" },
@@ -140,16 +141,11 @@ export function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Left Column - Info */}
           <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/30 border border-primary/50 mb-6"
-            >
-              <span className="font-mono text-sm text-secondary">
-                {"// get in touch"}
-              </span>
-            </motion.div>
+            <SectionChip
+              label="get in touch"
+              variant="dark"
+              className="mb-6"
+            />
 
             <motion.h2
               className="font-sans text-4xl md:text-5xl font-bold text-primary-foreground tracking-tight mb-6"

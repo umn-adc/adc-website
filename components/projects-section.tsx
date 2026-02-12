@@ -3,6 +3,7 @@
 import {useRef, useState} from "react";
 import {motion, useInView} from "motion/react";
 import {Button} from "@/components/ui/button";
+import SectionChip from "@/components/ui/section-chip";
 import {
   ArrowUpRight,
   ChevronLeft,
@@ -76,16 +77,10 @@ export function ProjectsSection({projects}: ProjectsSectionProps) {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
           <div className="max-w-2xl">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary border border-primary/10 mb-6"
-            >
-              <span className="font-mono text-sm text-primary">
-                {"// featured projects"}
-              </span>
-            </motion.div>
+            <SectionChip
+              label="featured projects"
+              className="mb-6"
+            />
 
             <motion.h2
               className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight mb-4"

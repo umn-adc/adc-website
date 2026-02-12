@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useMotionValueEvent, useScroll, useSpring, useTransform, useVelocity } from 'motion/react';
 
 export type LogoItem =
   | {
@@ -22,6 +23,13 @@ export interface LogoLoopProps {
   logos: LogoItem[];
   speed?: number;
   direction?: 'left' | 'right' | 'up' | 'down';
+  scrollVelocity?: boolean;
+  scrollVelocityDamping?: number;
+  scrollVelocityStiffness?: number;
+  scrollVelocityMapping?: {
+    input: [number, number];
+    output: [number, number];
+  };
   width?: number | string;
   logoHeight?: number;
   gap?: number;
@@ -41,6 +49,11 @@ const ANIMATION_CONFIG = {
   MIN_COPIES: 2,
   COPY_HEADROOM: 2
 } as const;
+
+const DEFAULT_SCROLL_VELOCITY_MAPPING: { input: [number, number]; output: [number, number] } = {
+  input: [0, 1000],
+  output: [0, 5]
+};
 
 const toCssLength = (value?: number | string): string | undefined =>
   typeof value === 'number' ? `${value}px` : (value ?? undefined);
@@ -122,7 +135,9 @@ const useAnimationLoop = (
   seqHeight: number,
   isHovered: boolean,
   hoverSpeed: number | undefined,
-  isVertical: boolean
+  isVertical: boolean,
+  scrollVelocity: boolean,
+  scrollVelocityFactorRef: React.MutableRefObject<number>
 ) => {
   const rafRef = useRef<number | null>(null);
   const lastTimestampRef = useRef<number | null>(null);
@@ -163,7 +178,14 @@ const useAnimationLoop = (
       const deltaTime = Math.max(0, timestamp - lastTimestampRef.current) / 1000;
       lastTimestampRef.current = timestamp;
 
-      const target = isHovered && hoverSpeed !== undefined ? hoverSpeed : targetVelocity;
+      const baseTarget = isHovered && hoverSpeed !== undefined ? hoverSpeed : targetVelocity;
+
+      let target = baseTarget;
+      const scrollFactor = scrollVelocity ? scrollVelocityFactorRef.current : 0;
+      if (scrollFactor !== 0 && baseTarget !== 0) {
+        const directionMultiplier = scrollFactor > 0 ? 1 : -1;
+        target = directionMultiplier * Math.abs(baseTarget) * (1 + Math.abs(scrollFactor));
+      }
 
       const easingFactor = 1 - Math.exp(-deltaTime / ANIMATION_CONFIG.SMOOTH_TAU);
       velocityRef.current += (target - velocityRef.current) * easingFactor;
@@ -191,7 +213,7 @@ const useAnimationLoop = (
       }
       lastTimestampRef.current = null;
     };
-  }, [targetVelocity, seqWidth, seqHeight, isHovered, hoverSpeed, isVertical]);
+  }, [targetVelocity, seqWidth, seqHeight, isHovered, hoverSpeed, isVertical, scrollVelocity, scrollVelocityFactorRef]);
 };
 
 export const LogoLoop = React.memo<LogoLoopProps>(
@@ -199,6 +221,10 @@ export const LogoLoop = React.memo<LogoLoopProps>(
     logos,
     speed = 120,
     direction = 'left',
+    scrollVelocity = false,
+    scrollVelocityDamping = 50,
+    scrollVelocityStiffness = 400,
+    scrollVelocityMapping = DEFAULT_SCROLL_VELOCITY_MAPPING,
     width = '100%',
     logoHeight = 28,
     gap = 32,
@@ -220,6 +246,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
     const [seqHeight, setSeqHeight] = useState<number>(0);
     const [copyCount, setCopyCount] = useState<number>(ANIMATION_CONFIG.MIN_COPIES);
     const [isHovered, setIsHovered] = useState<boolean>(false);
+    const scrollVelocityFactorRef = useRef(0);
 
     const effectiveHoverSpeed = useMemo(() => {
       if (hoverSpeed !== undefined) return hoverSpeed;
@@ -241,6 +268,31 @@ export const LogoLoop = React.memo<LogoLoopProps>(
       const speedMultiplier = speed < 0 ? -1 : 1;
       return magnitude * directionMultiplier * speedMultiplier;
     }, [speed, direction, isVertical]);
+
+    const { scrollY } = useScroll();
+    const rawScrollVelocity = useVelocity(scrollY);
+    const smoothScrollVelocity = useSpring(rawScrollVelocity, {
+      damping: scrollVelocityDamping,
+      stiffness: scrollVelocityStiffness
+    });
+    const mappedScrollVelocity = useTransform(
+      smoothScrollVelocity,
+      scrollVelocityMapping.input,
+      scrollVelocityMapping.output,
+      { clamp: false }
+    );
+
+    useMotionValueEvent(mappedScrollVelocity, 'change', latest => {
+      if (!scrollVelocity) {
+        scrollVelocityFactorRef.current = 0;
+        return;
+      }
+      scrollVelocityFactorRef.current = latest;
+    });
+
+    useEffect(() => {
+      if (!scrollVelocity) scrollVelocityFactorRef.current = 0;
+    }, [scrollVelocity]);
 
     const updateDimensions = useCallback(() => {
       const containerWidth = containerRef.current?.clientWidth ?? 0;
@@ -271,7 +323,17 @@ export const LogoLoop = React.memo<LogoLoopProps>(
 
     useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight, isVertical]);
 
-    useAnimationLoop(trackRef, targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical);
+    useAnimationLoop(
+      trackRef,
+      targetVelocity,
+      seqWidth,
+      seqHeight,
+      isHovered,
+      effectiveHoverSpeed,
+      isVertical,
+      scrollVelocity,
+      scrollVelocityFactorRef
+    );
 
     const cssVariables = useMemo(
       () =>

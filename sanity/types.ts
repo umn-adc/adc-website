@@ -186,7 +186,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: sanity/lib/queries/event.ts
 // Variable: EVENTS_QUERY
-// Query: *[_type == "event" && date >= now()] | order(date asc) {    _id,    id,    title,    description,    date,    location,    attendees,    type,    featured  }
+// Query: *[_type == "event" && date >= now()] | order(date asc) {    _id,    id,    title,    description,    link,    date,    location,    attendees,    type,    featured  }
 export type EVENTS_QUERYResult = Array<never>;
 
 // Source: sanity/lib/queries/project.ts
@@ -213,7 +213,7 @@ export type PROJECTS_QUERYResult = Array<{
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
-    '\n  *[_type == "event" && date >= now()] | order(date asc) {\n    _id,\n    id,\n    title,\n    description,\n    date,\n    location,\n    attendees,\n    type,\n    featured\n  }\n': EVENTS_QUERYResult;
+    '\n  *[_type == "event" && date >= now()] | order(date asc) {\n    _id,\n    id,\n    title,\n    description,\n    link,\n    date,\n    location,\n    attendees,\n    type,\n    featured\n  }\n': EVENTS_QUERYResult;
     '\n  *[_type == "project"]\n    | order(\n        select(\n          stage == "dev" => 0,\n          stage == "release" => 1,\n          stage == "unsupported" => 2,\n          3\n        ) asc,\n        _createdAt desc\n      ) {\n    _id,\n    id,\n    title,\n    description,\n    tags,\n    type,\n    stage,\n    href,\n    img,\n    color,\n    stats {\n      users,\n      rating\n    }\n  }\n': PROJECTS_QUERYResult;
   }
 }

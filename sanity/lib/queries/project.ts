@@ -1,4 +1,4 @@
-import {defineQuery} from 'next-sanity'
+import { defineQuery } from 'next-sanity';
 
 export const PROJECTS_QUERY = defineQuery(`
   *[_type == "project"]
@@ -26,4 +26,4 @@ export const PROJECTS_QUERY = defineQuery(`
       rating
     }
   }
-`)
+`);

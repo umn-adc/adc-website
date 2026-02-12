@@ -46,7 +46,16 @@ export function ProjectsSection({projects}: ProjectsSectionProps) {
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const projectItems = projects && projects.length > 0 ? projects : fallbackProjects;
+  const projectItems = (projects && projects.length > 0 ? projects : fallbackProjects).map((project) => {
+    if (project.img && typeof project.img !== "string" && !project.img.asset?._ref) {
+      const {img: _img, ...rest} = project;
+      return {
+        ...rest,
+        color: project.color ?? "from-primary to-indigo-deep",
+      };
+    }
+    return project;
+  });
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
@@ -141,7 +150,7 @@ export function ProjectsSection({projects}: ProjectsSectionProps) {
           <div className="flex gap-6 overflow-visible py-4">
             {projectItems.map((project, index) => (
               <ProjectCard
-                key={project.id}
+                key={String(project.id)}
                 project={project}
                 index={index}
                 isActive={activeIndex === index}

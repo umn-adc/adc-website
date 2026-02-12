@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity';
 
 export const projectType = defineType({
   name: 'project',
@@ -24,7 +24,7 @@ export const projectType = defineType({
     defineField({
       name: 'tags',
       type: 'array',
-      of: [{type: 'string'}],
+      of: [{ type: 'string' }],
       validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
@@ -32,8 +32,8 @@ export const projectType = defineType({
       type: 'string',
       options: {
         list: [
-          {title: 'Mobile app', value: 'mobile'},
-          {title: 'Web app', value: 'web'},
+          { title: 'Mobile app', value: 'mobile' },
+          { title: 'Web app', value: 'web' },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -43,9 +43,9 @@ export const projectType = defineType({
       type: 'string',
       options: {
         list: [
-          {title: 'Release', value: 'release'},
-          {title: 'In development', value: 'dev'},
-          {title: 'Unsupported', value: 'unsupported'},
+          { title: 'Release', value: 'release' },
+          { title: 'In development', value: 'dev' },
+          { title: 'Unsupported', value: 'unsupported' },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -58,8 +58,8 @@ export const projectType = defineType({
     defineField({
       name: 'img',
       title: 'Background Image',
-      type: 'string',
-      description: 'CSS background-image value, e.g. url("/path")',
+      type: 'image',
+      description: 'Image displayed on the project card.',
     }),
     defineField({
       name: 'color',
@@ -71,23 +71,24 @@ export const projectType = defineType({
       name: 'stats',
       type: 'object',
       fields: [
-        defineField({name: 'users', type: 'number'}),
-        defineField({name: 'rating', type: 'number'}),
+        defineField({ name: 'users', type: 'number' }),
+        defineField({ name: 'rating', type: 'number' }),
       ],
-      hidden: ({document}) => document?.stage === 'dev',
+      hidden: ({ document }) => document?.stage === 'dev',
       validation: (Rule) =>
         Rule.custom((value, context) => {
-          const stage = context.document?.stage
+          const stage = context.document?.stage;
           if (stage && stage !== 'dev') {
-            const usersMissing = value?.users === undefined || value?.users === null
+            const usersMissing =
+              value?.users === undefined || value?.users === null;
             const ratingMissing =
-              value?.rating === undefined || value?.rating === null
+              value?.rating === undefined || value?.rating === null;
             if (usersMissing || ratingMissing) {
-              return 'Stats are required when stage is not dev.'
+              return 'Stats are required when stage is not dev.';
             }
           }
-          return true
+          return true;
         }),
     }),
   ],
-})
+});

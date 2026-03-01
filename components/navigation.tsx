@@ -1,22 +1,23 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { ADCLogo } from "./ui/adc-logo";
-import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
-import Magnet from "@/components/ui/Magnet";
-import Link from "next/link";
-import { useLenis } from "lenis/react";
-import { useAnchorLink } from "@/hooks/use-anchor-link";
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { ADCLogo } from './ui/adc-logo';
+import { Button } from '@/components/ui/button';
+import { Menu, X } from 'lucide-react';
+import Magnet from '@/components/ui/Magnet';
+import Link from 'next/link';
+import { useLenis } from 'lenis/react';
+import { useAnchorLink } from '@/hooks/use-anchor-link';
 
 const MotionLink = motion.create(Link);
 
 const navLinks = [
-  { href: "/#about", label: "About" },
-  { href: "/#projects", label: "Projects" },
-  { href: "/#events", label: "Events" },
-  { href: "/#contact", label: "Contact" },
+  { href: '/#about', label: 'About' },
+  { href: '/#projects', label: 'Projects' },
+  { href: '/#events', label: 'Events' },
+  { href: '/#contact', label: 'Contact' },
+  { href: 'https://shop.adcumn.com/', label: 'Shop' },
 ];
 
 export function Navigation() {
@@ -31,32 +32,43 @@ export function Navigation() {
       const heroHeight = window.innerHeight * 0.9;
       setIsPastHero(window.scrollY > heroHeight);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // When at top (not past hero), we're on the indigo hero - use white text
   // When past hero, we're on white background - use dark text
-  const textColor = isPastHero ? "text-foreground/70 hover:text-primary" : "text-white/80 hover:text-white";
-  const iconColor = isPastHero ? "text-foreground" : "text-white";
+  const textColor = isPastHero
+    ? 'text-foreground/70 hover:text-primary'
+    : 'text-white/80 hover:text-white';
+  const iconColor = isPastHero ? 'text-foreground' : 'text-white';
 
   return (
     <>
       <motion.header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isPastHero
-            ? "bg-background/80 backdrop-blur-lg border-b border-border/50"
-            : "bg-transparent"
+            ? 'bg-background/80 backdrop-blur-lg border-b border-border/50'
+            : 'bg-transparent'
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <Link href="/" className="shrink-0" onClick={() => {lenis?.scrollTo(0)}}>
-              <ADCLogo animate={false} variant={isPastHero ? "full" : "light"} />
+            <Link
+              href="/"
+              className="shrink-0"
+              onClick={() => {
+                lenis?.scrollTo(0);
+              }}
+            >
+              <ADCLogo
+                animate={false}
+                variant={isPastHero ? 'full' : 'light'}
+              />
             </Link>
 
             {/* Desktop Navigation */}
@@ -72,7 +84,9 @@ export function Navigation() {
                     transition={{ duration: 0.4, delay: index * 0.1 }}
                   >
                     {link.label}
-                    <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${isPastHero ? "bg-primary" : "bg-white"}`} />
+                    <span
+                      className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${isPastHero ? 'bg-primary' : 'bg-white'}`}
+                    />
                   </MotionLink>
                 </Magnet>
               ))}
@@ -84,7 +98,8 @@ export function Navigation() {
                 <Button
                   as="a"
                   href="https://z.umn.edu/adc-discord"
-                  className={`font-sans font-medium rounded-full px-6 cursor-pointer ${isPastHero ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-white hover:bg-white/90 text-indigo"}`}>
+                  className={`font-sans font-medium rounded-full px-6 cursor-pointer ${isPastHero ? 'bg-primary hover:bg-primary/90 text-primary-foreground' : 'bg-white hover:bg-white/90 text-indigo'}`}
+                >
                   Join Us
                 </Button>
               </motion.div>
@@ -98,7 +113,7 @@ export function Navigation() {
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
-                <X className="w-6 h-6" color="black"/>
+                <X className="w-6 h-6" color="black" />
               ) : (
                 <Menu className="w-6 h-6" />
               )}

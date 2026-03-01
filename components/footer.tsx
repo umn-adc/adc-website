@@ -1,28 +1,31 @@
-"use client";
+'use client';
 
-import { motion } from "motion/react";
-import { ADCLogo } from "./ui/adc-logo";
-import Link from "next/link";
-import { useAnchorLink } from "@/hooks/use-anchor-link";
-import { useLenis } from "lenis/react";
-import Magnet from "./ui/Magnet";
+import { motion } from 'motion/react';
+import { ADCLogo } from './ui/adc-logo';
+import Link from 'next/link';
+import { useAnchorLink } from '@/hooks/use-anchor-link';
+import { useLenis } from 'lenis/react';
+import Magnet from './ui/Magnet';
 
 const footerLinks = {
   club: [
-    { label: "About", href: "/#about" },
-    { label: "Projects", href: "/#projects" },
-    { label: "Events", href: "/#events" },
-    { label: "Contact", href: "/#contact" },
+    { label: 'About', href: '/#about' },
+    { label: 'Projects', href: '/#projects' },
+    { label: 'Events', href: '/#events' },
+    { label: 'Contact', href: '/#contact' },
   ],
   resources: [
-    { label: "GopherLink", href: "https://z.umn.edu/adc-gopherlink" },
-    // { label: "Documentation", href: "#" },
-    { label: "Brand Kit", href: "https://z.umn.edu/adc-brand-guidelines" },
-    { label: "GitHub Org", href: "https://github.com/umn-adc" },
+    { label: 'GopherLink', href: 'https://z.umn.edu/adc-gopherlink' },
+    { label: 'Shop', href: 'https://shop.adcumn.com' },
+    { label: 'Brand Kit', href: 'https://z.umn.edu/adc-brand-guidelines' },
+    { label: 'GitHub Org', href: 'https://github.com/umn-adc' },
   ],
   legal: [
-    { label: "Constitution", href: "https://z.umn.edu/adc-constitution" },
-    { label: "Officer Responsibilities", href: "https://z.umn.edu/adc-officer-responsibilities" },
+    { label: 'Constitution', href: 'https://z.umn.edu/adc-constitution' },
+    {
+      label: 'Officer Responsibilities',
+      href: 'https://z.umn.edu/adc-officer-responsibilities',
+    },
   ],
 };
 
@@ -38,8 +41,7 @@ export function Footer() {
           <div className="md:col-span-1">
             <ADCLogo animate={false} size="lg" />
             <p className="font-serif text-sm text-muted-foreground mt-4 leading-relaxed">
-              App Developers Club—helping students learn by shipping since
-              2016.
+              App Developers Club—helping students learn by shipping since 2016.
             </p>
           </div>
 
@@ -109,7 +111,8 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="font-serif text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} App Developers Club. All Rights Reserved.
+            &copy; {new Date().getFullYear()} App Developers Club. All Rights
+            Reserved.
           </p>
 
           {/* Decorative Star */}
@@ -118,10 +121,14 @@ export function Footer() {
             transition={{
               duration: 20,
               repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
+              ease: 'linear',
             }}
           >
-           <img src="/adc-star-indigo.svg" alt="ADC star logo" className="w-6 h-6" /> 
+            <img
+              src="/adc-star-indigo.svg"
+              alt="ADC star logo"
+              className="w-6 h-6"
+            />
           </motion.div>
 
           <Magnet>

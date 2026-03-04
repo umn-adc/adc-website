@@ -1,46 +1,32 @@
-import type { Metadata } from "next";
-import LanyardScroller from "@/components/officers/lanyard-scroller";
+import type { Metadata } from 'next';
+import LanyardScroller from '@/components/officers/lanyard-scroller';
+import {
+  getOfficerFullName,
+  mapOfficerSourcesToProfiles,
+} from '@/lib/officers';
+import { sanityFetch } from '@/sanity/lib/live';
+import { OFFICERS_QUERY } from '@/sanity/lib/queries';
+import type { OFFICERS_QUERYResult } from '@/sanity/types';
 
 export const metadata: Metadata = {
-  title: "ADC | Officers",
+  title: 'ADC | Officers',
   description:
-    "Meet the UMN App Developers Club officers leading workshops, projects, and community.",
+    'Meet the UMN App Developers Club officers leading workshops, projects, and community.',
 };
 
-const officers = [
-  {
-    name: "Victor",
-    role: "President",
-    modelUrl: "/lanyard/victor.glb",
-  },
-  {
-    name: "Alex",
-    role: "Vice-President",
-    modelUrl: "/lanyard/alex.glb",
-  },
-  {
-    name: "Qise",
-    role: "Secretary",
-    modelUrl: "/lanyard/qise.glb",
-  },
-  {
-    name: "Kieran",
-    role: "Tech Lead",
-    modelUrl: "/lanyard/kieran.glb",
-  },
-  {
-    name: "Johnny",
-    role: "Treasurer",
-    modelUrl: "/lanyard/johnny.glb",
-  },
-  {
-    name: "Agness",
-    role: "Marketing Lead",
-    modelUrl: "/lanyard/agness.glb",
-  },
-];
+const OfficersPage = async () => {
+  const { data } = await sanityFetch({ query: OFFICERS_QUERY });
+  const officers = mapOfficerSourcesToProfiles(
+    Array.isArray(data) ? (data as OFFICERS_QUERYResult) : []
+  );
 
-export default function OfficersPage() {
+  const lanyardOfficers = officers.map((officer) => ({
+    name: getOfficerFullName(officer),
+    role: officer.positions[0]?.position ?? 'Officer',
+    modelUrl: officer.modelUrl,
+    href: `/officers/${officer.slug}`,
+  }));
+
   return (
     <main className="relative">
       <section className="relative z-10 overflow-hidden bg-indigo text-white pt-28 md:pt-36 pb-16 md:pb-24">
@@ -66,8 +52,10 @@ export default function OfficersPage() {
       </section>
 
       <section className="relative z-0 -mt-16 md:-mt-24 pt-0 pb-0 bg-transparent">
-        <LanyardScroller officers={officers} />
+        <LanyardScroller officers={lanyardOfficers} />
       </section>
     </main>
   );
-}
+};
+
+export default OfficersPage;

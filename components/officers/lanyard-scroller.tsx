@@ -1,19 +1,22 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import Lanyard from "@/components/ui/lanyard";
+import type * as React from 'react';
+import { useEffect, useRef } from 'react';
+import Link from 'next/link';
+import Lanyard from '@/components/ui/lanyard';
 
 type Officer = {
   name: string;
   role: string;
   modelUrl: string;
+  href: string;
 };
 
 type LanyardScrollerProps = {
   officers: Officer[];
 };
 
-export default function LanyardScroller({ officers }: LanyardScrollerProps) {
+const LanyardScroller: React.FC<LanyardScrollerProps> = ({ officers }) => {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const fov = 46;
   const z = 8;
@@ -30,9 +33,9 @@ export default function LanyardScroller({ officers }: LanyardScrollerProps) {
       event.preventDefault();
     };
 
-    scroller.addEventListener("wheel", handleWheel, { passive: false });
+    scroller.addEventListener('wheel', handleWheel, { passive: false });
     return () => {
-      scroller.removeEventListener("wheel", handleWheel);
+      scroller.removeEventListener('wheel', handleWheel);
     };
   }, []);
 
@@ -50,14 +53,20 @@ export default function LanyardScroller({ officers }: LanyardScrollerProps) {
           <Lanyard
             modelUrl={officer.modelUrl}
             fov={fov}
-            position={[
-              (index - (officers.length - 1) / 2) * xStep,
-              y,
-              z,
-            ]}
+            position={[(index - (officers.length - 1) / 2) * xStep, y, z]}
           />
+          <div className="pointer-events-none absolute inset-x-0 top-[85%] z-20 flex justify-center">
+            <Link
+              href={officer.href}
+              className="pointer-events-auto inline-flex items-center rounded-full border border-border/60 bg-card px-5 py-2 text-sm font-medium text-card-foreground transition-colors hover:bg-muted"
+            >
+              Officer Page →
+            </Link>
+          </div>
         </article>
       ))}
     </div>
   );
-}
+};
+
+export default LanyardScroller;

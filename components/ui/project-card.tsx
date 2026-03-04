@@ -87,7 +87,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   return (
     <motion.div
       ref={ref}
-      className={`relative shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] ${isActive ? 'z-10' : 'z-0'}`}
+      className={`relative h-full ${isActive ? 'z-10' : 'z-0'}`}
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.1 }}

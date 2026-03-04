@@ -27,3 +27,29 @@ export const PROJECTS_QUERY = defineQuery(`
     }
   }
 `);
+
+export const PROJECTS_BY_SLUGS_QUERY = defineQuery(`
+  *[
+    _type == "project" &&
+    (
+      id in $slugs ||
+      slug.current in $slugs
+    )
+  ] {
+    _id,
+    id,
+    "slug": coalesce(slug.current, id),
+    title,
+    description,
+    tags,
+    type,
+    stage,
+    href,
+    img,
+    color,
+    stats {
+      users,
+      rating
+    }
+  }
+`);

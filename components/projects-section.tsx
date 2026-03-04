@@ -1,16 +1,17 @@
-"use client";
+'use client';
 
-import {useRef, useState} from "react";
-import {motion, useInView} from "motion/react";
-import {Button} from "@/components/ui/button";
-import SectionChip from "@/components/ui/section-chip";
+import { useRef, useState } from 'react';
+import { motion, useInView } from 'motion/react';
+import { Button } from '@/components/ui/button';
+import SectionChip from '@/components/ui/section-chip';
+import { ArrowUpRight } from 'lucide-react';
+import ProjectsCarousel from './projects-carousel';
+import type { Project } from '@/components/ui/project-card';
 import {
-  ArrowUpRight,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
-import ProjectCard from "./ui/project-card";
-import type {Project} from "@/components/ui/project-card";
+  type CarouselApi,
+  CarouselNext,
+  CarouselPrevious,
+} from './ui/carousel';
 
 type ProjectsSectionProps = {
   projects?: Project[];
@@ -19,56 +20,48 @@ type ProjectsSectionProps = {
 const fallbackProjects: Project[] = [
   {
     id: 'gt',
-    title: "GopherTunnels",
+    title: 'GopherTunnels',
     stage: 'release',
     type: 'mobile',
-    href: "https://apps.apple.com/us/app/gophertunnels/id6754943228",
+    href: 'https://apps.apple.com/us/app/gophertunnels/id6754943228',
     description:
-      "A mobile app helping UMN students navigate the GopherWay with smart paths and real-time directions.",
-    tags: ["TypeScript", "React Native", "Express"],
-    color: "from-primary to-indigo-deep",
+      'A mobile app helping UMN students navigate the GopherWay with smart paths and real-time directions.',
+    tags: ['TypeScript', 'React Native', 'Express'],
+    color: 'from-primary to-indigo-deep',
     stats: { users: 100, rating: 5 },
   },
   {
     id: 'gf',
-    title: "GopherFit",
+    title: 'GopherFit',
     stage: 'dev',
     type: 'mobile',
     description:
-      "A fitness and nutrition mobile app tailored to UMN resources, like the RecWell and GopherAthletics.",
-    tags: ["TypeScript", "Go", "React Native"],
-    color: "from-navy to-caption",
+      'A fitness and nutrition mobile app tailored to UMN resources, like the RecWell and GopherAthletics.',
+    tags: ['TypeScript', 'Go', 'React Native'],
+    color: 'from-navy to-caption',
   },
 ];
 
-export function ProjectsSection({projects}: ProjectsSectionProps) {
+export function ProjectsSection({ projects }: ProjectsSectionProps) {
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
-  const [activeIndex, setActiveIndex] = useState(0);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const projectItems = (projects && projects.length > 0 ? projects : fallbackProjects).map((project) => {
-    if (project.img && typeof project.img !== "string" && !project.img.asset?._ref) {
-      const {img: _img, ...rest} = project;
+  const isInView = useInView(containerRef, { once: true, margin: '-100px' });
+  const projectItems = (
+    projects && projects.length > 0 ? projects : fallbackProjects
+  ).map((project) => {
+    if (
+      project.img &&
+      typeof project.img !== 'string' &&
+      !project.img.asset?._ref
+    ) {
+      const { img: _img, ...rest } = project;
       return {
         ...rest,
-        color: project.color ?? "from-primary to-indigo-deep",
+        color: project.color ?? 'from-primary to-indigo-deep',
       };
     }
     return project;
   });
-
-  const scroll = (direction: "left" | "right") => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 400;
-      const newScrollLeft =
-        scrollContainerRef.current.scrollLeft +
-        (direction === "left" ? -scrollAmount : scrollAmount);
-      scrollContainerRef.current.scrollTo({
-        left: newScrollLeft,
-        behavior: "smooth",
-      });
-    }
-  };
 
   return (
     <section
@@ -86,10 +79,7 @@ export function ProjectsSection({projects}: ProjectsSectionProps) {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
           <div className="max-w-2xl">
-            <SectionChip
-              label="featured projects"
-              className="mb-6"
-            />
+            <SectionChip label="featured projects" className="mb-6" />
 
             <motion.h2
               className="font-sans text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight mb-4"
@@ -98,7 +88,7 @@ export function ProjectsSection({projects}: ProjectsSectionProps) {
               transition={{ duration: 0.6, delay: 0.1 }}
             >
               <span className="text-balance">
-                Apps that{" "}
+                Apps that{' '}
                 <span className="text-gradient-indigo">make an impact</span>
               </span>
             </motion.h2>
@@ -121,43 +111,17 @@ export function ProjectsSection({projects}: ProjectsSectionProps) {
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <Button
-              variant="outline"
-              size="icon"
-              className="rounded-full w-12 h-12 bg-transparent"
-              onClick={() => scroll("left")}
-              aria-label="Scroll left"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              className="rounded-full w-12 h-12 bg-transparent"
-              onClick={() => scroll("right")}
-              aria-label="Scroll right"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </Button>
+            <CarouselPrevious api={carouselApi} />
+            <CarouselNext api={carouselApi} />
           </motion.div>
         </div>
 
         {/* Projects Carousel */}
-        <div
-          ref={scrollContainerRef}
-          className="overflow-x-auto overflow-y-hidden scrollbar-hide -mx-4 px-4 snap-x snap-mandatory box-border"
-        >
-          <div className="flex gap-6 overflow-visible py-4">
-            {projectItems.map((project, index) => (
-              <ProjectCard
-                key={String(project.id)}
-                project={project}
-                index={index}
-                isActive={activeIndex === index}
-              />
-            ))}
-          </div>
-        </div>
+        <ProjectsCarousel
+          projects={projectItems}
+          setApi={setCarouselApi}
+          hideControls
+        />
 
         {/* View All Button */}
         <motion.div

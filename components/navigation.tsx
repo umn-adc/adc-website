@@ -9,6 +9,7 @@ import Magnet from '@/components/ui/Magnet';
 import Link from 'next/link';
 import { useLenis } from 'lenis/react';
 import { useAnchorLink } from '@/hooks/use-anchor-link';
+import { usePathname } from 'next/navigation';
 
 const MotionLink = motion.create(Link);
 
@@ -23,18 +24,45 @@ const navLinks = [
 export function Navigation() {
   const lenis = useLenis();
   const onAnchorClick = useAnchorLink();
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
   const [isPastHero, setIsPastHero] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Only switch to white bg when scrolled past the hero section (90% of viewport height)
-      const heroHeight = window.innerHeight * 0.9;
-      setIsPastHero(window.scrollY > heroHeight);
+    const updateHeaderState = (scrollValue: number) => {
+      if (isHomePage) {
+        // homepage: switch once we're past the hero section
+        const heroHeight = window.innerHeight * 0.9;
+        setIsPastHero(scrollValue > heroHeight);
+        return;
+      }
+
+      // other pages: switch on scroll down from the top
+      setIsPastHero((previous) => scrollValue > 0);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+
+    const handleWindowScroll = () => {
+      const scrollValue = isHomePage
+        ? window.scrollY
+        : (lenis?.targetScroll ?? window.scrollY);
+      updateHeaderState(scrollValue);
+    };
+
+    handleWindowScroll();
+    const unsubscribeLenis = lenis?.on('scroll', (instance) => {
+      const scrollValue = isHomePage
+        ? instance.animatedScroll
+        : instance.targetScroll;
+      updateHeaderState(scrollValue);
+    });
+
+    window.addEventListener('scroll', handleWindowScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleWindowScroll);
+      unsubscribeLenis?.();
+    };
+  }, [isHomePage, lenis]);
 
   // When at top (not past hero), we're on the indigo hero - use white text
   // When past hero, we're on white background - use dark text

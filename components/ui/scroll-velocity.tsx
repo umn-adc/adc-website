@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useRef, useLayoutEffect, useState } from 'react';
 import {
   motion,
@@ -31,7 +33,8 @@ interface VelocityTextProps {
 
 interface ScrollVelocityProps {
   scrollContainerRef?: React.RefObject<HTMLElement>;
-  texts: string[];
+  texts?: string[];
+  rows?: React.ReactNode[];
   velocity?: number;
   className?: string;
   damping?: number;
@@ -64,6 +67,7 @@ function useElementWidth<T extends HTMLElement>(ref: React.RefObject<T | null>):
 export const ScrollVelocity: React.FC<ScrollVelocityProps> = ({
   scrollContainerRef,
   texts = [],
+  rows,
   velocity = 100,
   className = '',
   damping = 50,
@@ -153,9 +157,16 @@ export const ScrollVelocity: React.FC<ScrollVelocityProps> = ({
     );
   }
 
+  const rowContent =
+    rows && rows.length > 0
+      ? rows
+      : texts.map((text: string, index: number) => (
+          <React.Fragment key={index}>{text}&nbsp;</React.Fragment>
+        ));
+
   return (
     <section>
-      {texts.map((text: string, index: number) => (
+      {rowContent.map((row, index: number) => (
         <VelocityText
           key={index}
           className={className}
@@ -170,7 +181,7 @@ export const ScrollVelocity: React.FC<ScrollVelocityProps> = ({
           parallaxStyle={parallaxStyle}
           scrollerStyle={scrollerStyle}
         >
-          {text}&nbsp;
+          {row}
         </VelocityText>
       ))}
     </section>

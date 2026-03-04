@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React from "react"
+import React from 'react';
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "motion/react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
+import { useEffect, useRef, useState } from 'react';
+import { motion, useInView } from 'motion/react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { toast } from 'sonner';
 import {
   Mail,
   MessageSquare,
@@ -18,35 +18,45 @@ import {
   Instagram,
   CheckCircle2,
   XCircle,
-} from "lucide-react";
-import { ContactLinkCard } from "@/components/ui/contact-link-card";
-import SectionChip from "@/components/ui/section-chip";
+} from 'lucide-react';
+import { ContactLinkCard } from '@/components/ui/contact-link-card';
+import SectionChip from '@/components/ui/section-chip';
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com/umn-adc", label: "GitHub" },
-  { icon: Linkedin, href: "https://www.linkedin.com/company/app-developers-club", label: "LinkedIn" },
-  { icon: Instagram, href: "https://www.instagram.com/adc_umn/", label: "Instagram" },
+  { icon: Github, href: 'https://github.com/umn-adc', label: 'GitHub' },
+  {
+    icon: Linkedin,
+    href: 'https://www.linkedin.com/company/app-developers-club',
+    label: 'LinkedIn',
+  },
+  {
+    icon: Instagram,
+    href: 'https://www.instagram.com/adc_umn/',
+    label: 'Instagram',
+  },
 ];
 
 const contactLinks = [
   {
     icon: Mail,
-    label: "Email us at",
-    value: "appdevel@umn.edu",
-    href: "mailto:appdevel@umn.edu",
+    label: 'Email us at',
+    value: 'appdevel@umn.edu',
+    href: 'mailto:appdevel@umn.edu',
   },
   {
     icon: MessageSquare,
-    label: "Join our Discord",
-    value: "z.umn.edu/adc-discord",
-    href: "https://z.umn.edu/adc-discord",
+    label: 'Join our Discord',
+    value: 'z.umn.edu/adc-discord',
+    href: 'https://z.umn.edu/adc-discord',
   },
 ];
 
 export function ContactSection() {
   const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const isInView = useInView(containerRef, { once: true, margin: '-100px' });
+  const [status, setStatus] = useState<
+    'idle' | 'loading' | 'success' | 'error'
+  >('idle');
   const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -59,47 +69,46 @@ export function ContactSection() {
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (status === "loading") return;
+    if (status === 'loading') return;
 
     const form = e.currentTarget;
     const formData = new FormData(form);
 
     const payload = Object.fromEntries(
-      ["name", "email", "subject", "message", "website"].map((key) => [
+      ['name', 'email', 'subject', 'message', 'website'].map((key) => [
         key,
-        String(formData.get(key) ?? ""),
-      ]),
+        String(formData.get(key) ?? ''),
+      ])
     );
 
-    setStatus("loading");
+    setStatus('loading');
 
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
 
       if (res.ok) {
         form.reset();
         toast.success("Message sent! We'll be in touch soon.");
-        setStatus("success");
+        setStatus('success');
       } else {
         const data = await res.json().catch(() => ({}));
-        toast.error(data?.error ?? "Failed to send message. Please try again.");
-        setStatus("error");
+        toast.error(data?.error ?? 'Failed to send message. Please try again.');
+        setStatus('error');
       }
     } catch (err) {
       console.error(err);
-      toast.error("Failed to send message. Please try again.");
-      setStatus("error");
+      toast.error('Failed to send message. Please try again.');
+      setStatus('error');
     }
 
     if (resetTimerRef.current) {
       clearTimeout(resetTimerRef.current);
     }
-    resetTimerRef.current = setTimeout(() => setStatus("idle"), 3000);
-
+    resetTimerRef.current = setTimeout(() => setStatus('idle'), 3000);
   };
 
   return (
@@ -132,7 +141,11 @@ export function ContactSection() {
               repeat: Number.POSITIVE_INFINITY,
             }}
           >
-           <img src="/adc-star-white.svg" alt="twinkling ADC star logo" className="w-6 h-6"/> 
+            <img
+              src="/adc-star-white.svg"
+              alt="twinkling ADC star logo"
+              className="w-6 h-6"
+            />
           </motion.div>
         ))}
       </div>
@@ -141,11 +154,7 @@ export function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Left Column - Info */}
           <div>
-            <SectionChip
-              label="get in touch"
-              variant="dark"
-              className="mb-6"
-            />
+            <SectionChip label="get in touch" variant="dark" className="mb-6" />
 
             <motion.h2
               className="font-sans text-4xl md:text-5xl font-bold text-primary-foreground tracking-tight mb-6"
@@ -153,9 +162,8 @@ export function ContactSection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-                <span className="text-balance">
-                Ready to start{" "}
-                <span className="text-primary">building?</span>
+              <span className="text-balance">
+                Ready to start <span className="text-primary">building?</span>
               </span>
             </motion.h2>
 
@@ -166,8 +174,8 @@ export function ContactSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               Whether you have a question, want to join a project, or just want
-              to say hi—we would love to hear from you. Drop us a message and we will
-              get back to you soon.
+              to say hi—we would love to hear from you. Drop us a message and we
+              will get back to you soon.
             </motion.p>
 
             {/* Contact Info Cards */}
@@ -236,7 +244,8 @@ export function ContactSection() {
                       Name
                     </Label>
                     <Input
-                      id="name" name="name"
+                      id="name"
+                      name="name"
                       placeholder="Your name"
                       className="rounded-xl font-serif h-12"
                       required
@@ -250,7 +259,8 @@ export function ContactSection() {
                       Email
                     </Label>
                     <Input
-                      id="email" name="email"
+                      id="email"
+                      name="email"
                       type="email"
                       placeholder="you@umn.edu"
                       className="rounded-xl font-serif h-12"
@@ -267,8 +277,9 @@ export function ContactSection() {
                     Subject
                   </Label>
                   <Input
-                    id="subject" name="subject"
-                    placeholder="What's this about?"
+                    id="subject"
+                    name="subject"
+                    placeholder="What's up?"
                     className="rounded-xl font-serif h-12"
                     required
                   />
@@ -282,7 +293,8 @@ export function ContactSection() {
                     Message
                   </Label>
                   <Textarea
-                    id="message" name="message"
+                    id="message"
+                    name="message"
                     placeholder="Tell us more..."
                     className="rounded-xl font-serif min-h-[150px] resize-none"
                     required
@@ -292,22 +304,22 @@ export function ContactSection() {
                 <Button
                   type="submit"
                   size="lg"
-                  variant={status === "error" ? "destructive" : "default"}
+                  variant={status === 'error' ? 'destructive' : 'default'}
                   className="w-full font-sans font-semibold rounded-full h-12 group"
-                  loading={status === "loading"}
-                  disabled={status !== "idle"}
+                  loading={status === 'loading'}
+                  disabled={status !== 'idle'}
                 >
-                  {status === "success" ? (
+                  {status === 'success' ? (
                     <>
                       <CheckCircle2 className="mr-2 w-5 h-5" />
                       Message Sent!
                     </>
-                  ) : status === "error" ? (
+                  ) : status === 'error' ? (
                     <>
                       <XCircle className="mr-2 w-5 h-5" />
                       Failed to Send
                     </>
-                  ) : status === "loading" ? (
+                  ) : status === 'loading' ? (
                     <>Sending...</>
                   ) : (
                     <>

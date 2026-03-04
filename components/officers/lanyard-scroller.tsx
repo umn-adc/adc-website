@@ -1,5 +1,6 @@
 "use client";
 
+import type * as React from "react";
 import { useEffect, useRef } from "react";
 import Lanyard from "@/components/ui/lanyard";
 
@@ -13,7 +14,7 @@ type LanyardScrollerProps = {
   officers: Officer[];
 };
 
-export default function LanyardScroller({ officers }: LanyardScrollerProps) {
+const LanyardScroller: React.FC<LanyardScrollerProps> = ({ officers }) => {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const fov = 46;
   const z = 8;
@@ -60,4 +61,6 @@ export default function LanyardScroller({ officers }: LanyardScrollerProps) {
       ))}
     </div>
   );
-}
+};
+
+export default LanyardScroller;

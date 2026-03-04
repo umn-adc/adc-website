@@ -1,46 +1,33 @@
-import type { Metadata } from "next";
-import LanyardScroller from "@/components/officers/lanyard-scroller";
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import LanyardScroller from '@/components/officers/lanyard-scroller';
+import {
+  getOfficerFullName,
+  getOfficerHexCode,
+  mapOfficerSourcesToProfiles,
+} from '@/lib/officers';
+import { sanityFetch } from '@/sanity/lib/live';
+import { OFFICERS_QUERY } from '@/sanity/lib/queries';
+import type { OFFICERS_QUERYResult } from '@/sanity/types';
 
 export const metadata: Metadata = {
-  title: "ADC | Officers",
+  title: 'ADC | Officers',
   description:
-    "Meet the UMN App Developers Club officers leading workshops, projects, and community.",
+    'Meet the UMN App Developers Club officers leading workshops, projects, and community.',
 };
 
-const officers = [
-  {
-    name: "Victor",
-    role: "President",
-    modelUrl: "/lanyard/victor.glb",
-  },
-  {
-    name: "Alex",
-    role: "Vice-President",
-    modelUrl: "/lanyard/alex.glb",
-  },
-  {
-    name: "Qise",
-    role: "Secretary",
-    modelUrl: "/lanyard/qise.glb",
-  },
-  {
-    name: "Kieran",
-    role: "Tech Lead",
-    modelUrl: "/lanyard/kieran.glb",
-  },
-  {
-    name: "Johnny",
-    role: "Treasurer",
-    modelUrl: "/lanyard/johnny.glb",
-  },
-  {
-    name: "Agness",
-    role: "Marketing Lead",
-    modelUrl: "/lanyard/agness.glb",
-  },
-];
+const OfficersPage = async () => {
+  const { data } = await sanityFetch({ query: OFFICERS_QUERY });
+  const officers = mapOfficerSourcesToProfiles(
+    Array.isArray(data) ? (data as OFFICERS_QUERYResult) : []
+  );
 
-export default function OfficersPage() {
+  const lanyardOfficers = officers.map((officer) => ({
+    name: getOfficerFullName(officer),
+    role: officer.positions[0]?.position ?? 'Officer',
+    modelUrl: officer.modelUrl,
+  }));
+
   return (
     <main className="relative">
       <section className="relative z-10 overflow-hidden bg-indigo text-white pt-28 md:pt-36 pb-16 md:pb-24">
@@ -66,8 +53,43 @@ export default function OfficersPage() {
       </section>
 
       <section className="relative z-0 -mt-16 md:-mt-24 pt-0 pb-0 bg-transparent">
-        <LanyardScroller officers={officers} />
+        <LanyardScroller officers={lanyardOfficers} />
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {officers.map((officer) => (
+          <article
+            key={officer.id}
+            className="rounded-2xl border border-border/60 bg-card p-5"
+          >
+            <p className="font-mono text-xs text-muted-foreground">
+              id: {officer.id}
+            </p>
+            <h2 className="font-sans text-xl font-semibold mt-2">
+              {getOfficerFullName(officer)}
+            </h2>
+            <p className="text-sm text-muted-foreground mt-1">
+              {officer.positions[0]?.position}
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2 text-sm">
+              <Link
+                href={`/officers/${officer.slug}`}
+                className="underline underline-offset-4"
+              >
+                /officers/{officer.slug}
+              </Link>
+              <Link
+                href={`/officers/${getOfficerHexCode(officer)}`}
+                className="underline underline-offset-4"
+              >
+                /officers/{getOfficerHexCode(officer)}
+              </Link>
+            </div>
+          </article>
+        ))}
       </section>
     </main>
   );
-}
+};
+
+export default OfficersPage;

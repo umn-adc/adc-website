@@ -16,16 +16,25 @@ import {
 import type {
   OFFICER_BY_IDENTIFIER_QUERYResult,
   OFFICER_IDENTIFIERS_QUERYResult,
-  Project as SanityProject,
+  PROJECTS_BY_SLUGS_QUERYResult,
 } from '@/sanity/types';
 import type { Project } from '@/components/ui/project-card';
 
-type SanityProjectWithSlug = SanityProject & {
-  slug?: string | null;
+type SanityProjectWithSlug = PROJECTS_BY_SLUGS_QUERYResult[number];
+
+const normalizeProjectTypes = (
+  project: SanityProjectWithSlug
+): Project['types'] => {
+  const sourceTypes = Array.isArray(project.types) ? project.types : [];
+  const validTypes = sourceTypes.filter(
+    (value): value is Project['types'][number] =>
+      value === 'mobile' || value === 'web' || value === 'cli'
+  );
+  return validTypes.length > 0 ? validTypes : ['web'];
 };
 
 const mapSanityProjectToProjectCard = (
-  project: SanityProject,
+  project: SanityProjectWithSlug,
   index: number
 ): Project => {
   const stage = project.stage ?? 'dev';
@@ -40,9 +49,9 @@ const mapSanityProjectToProjectCard = (
   return {
     id: project.id ?? project._id ?? index,
     title: project.title ?? 'Untitled project',
-    description: project.description ?? '',
+    description: project.blurb ?? project.description ?? '',
     tags: project.tags ?? [],
-    type: (project.type ?? 'web') as Project['type'],
+    types: normalizeProjectTypes(project),
     stage,
     ...(project.href ? { href: project.href } : {}),
     ...(project.img
@@ -194,7 +203,7 @@ const OfficerPage = async ({ params }: OfficerProfileRouteProps) => {
 
   const projects = Array.isArray(projectsData)
     ? mapAndSortProjectsBySlugs(
-        projectsData as SanityProjectWithSlug[],
+        projectsData as PROJECTS_BY_SLUGS_QUERYResult,
         projectSlugs
       )
     : [];

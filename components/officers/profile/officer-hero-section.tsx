@@ -1,4 +1,5 @@
 import type * as React from 'react';
+import { ViewTransition } from 'react';
 import OfficerActionLinks from './officer-action-links';
 import OfficerHeroBackground from './officer-hero-background';
 import OfficerModelPreview from './officer-model-preview';
@@ -43,9 +44,11 @@ const OfficerHeroSection: React.FC<OfficerSectionProps> = ({ officer }) => {
             parentClassName="font-mono text-xs text-white/60 mb-3"
             text={officer.id}
           />
-          <h1 className="font-sans text-4xl md:text-6xl font-bold tracking-tight">
-            {officerFullName}
-          </h1>
+          <ViewTransition name={`${officer.id}--name`}>
+            <h1 className="font-sans text-4xl md:text-6xl font-bold tracking-tight">
+              {officerFullName}
+            </h1>
+          </ViewTransition>
           {profileMeta.length > 0 ? (
             <p className="mt-2 font-sans text-sm md:text-base text-white/75">
               {officer.college} {formatClassYear(officer.classYear)}

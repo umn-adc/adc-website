@@ -5,7 +5,7 @@ import {EventsSection} from "@/components/events-section";
 import {ContactSection} from "@/components/contact-section";
 import {sanityFetch} from "@/sanity/lib/live";
 import {EVENTS_QUERY, PROJECTS_QUERY} from "@/sanity/lib/queries";
-import type {Event as SanityEvent, Project as SanityProject} from "@/sanity/types";
+import type {Event as SanityEvent, PROJECTS_QUERYResult} from "@/sanity/types";
 import type {EventType} from "@/components/ui/event-card";
 import type {Project} from "@/components/ui/project-card";
 
@@ -43,7 +43,20 @@ const mapEvent = (event: SanityEvent, index: number): EventItemSerialized => ({
   featured: event.featured ?? false,
 });
 
-const mapProject = (project: SanityProject, index: number): Project => {
+type SanityProjectListItem = PROJECTS_QUERYResult[number];
+
+const normalizeProjectTypes = (
+  project: SanityProjectListItem
+): Project['types'] => {
+  const sourceTypes = Array.isArray(project.types) ? project.types : [];
+  const validTypes = sourceTypes.filter(
+    (value): value is Project['types'][number] =>
+      value === 'mobile' || value === 'web' || value === 'cli'
+  );
+  return validTypes.length > 0 ? validTypes : ['web'];
+};
+
+const mapProject = (project: SanityProjectListItem, index: number): Project => {
   const stage = project.stage ?? "dev";
   const stats =
     stage === "dev"
@@ -55,9 +68,9 @@ const mapProject = (project: SanityProject, index: number): Project => {
   return {
     id: project.id ?? project._id ?? index,
     title: project.title ?? "Untitled project",
-    description: project.description ?? "",
+    description: project.blurb ?? project.description ?? "",
     tags: project.tags ?? [],
-    type: (project.type ?? "web") as Project["type"],
+    types: normalizeProjectTypes(project),
     stage,
     ...(project.href ? {href: project.href} : {}),
     ...(project.img ? {img: project.img} : {color: project.color ?? "from-primary to-indigo-deep"}),
@@ -74,7 +87,7 @@ export default async function Home() {
     ? (eventsData as SanityEvent[]).map(mapEvent)
     : [];
   const projects = Array.isArray(projectsData)
-    ? (projectsData as SanityProject[]).map(mapProject)
+    ? (projectsData as PROJECTS_QUERYResult).map(mapProject)
     : [];
 
   return (

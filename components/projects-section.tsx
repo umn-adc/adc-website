@@ -22,7 +22,7 @@ const fallbackProjects: Project[] = [
     id: 'gt',
     title: 'GopherTunnels',
     stage: 'release',
-    type: 'mobile',
+    types: ['mobile'],
     href: 'https://apps.apple.com/us/app/gophertunnels/id6754943228',
     description:
       'A mobile app helping UMN students navigate the GopherWay with smart paths and real-time directions.',
@@ -34,7 +34,7 @@ const fallbackProjects: Project[] = [
     id: 'gf',
     title: 'GopherFit',
     stage: 'dev',
-    type: 'mobile',
+    types: ['mobile'],
     description:
       'A fitness and nutrition mobile app tailored to UMN resources, like the RecWell and GopherAthletics.',
     tags: ['TypeScript', 'Go', 'React Native'],

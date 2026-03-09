@@ -272,6 +272,10 @@ export const techMap: Record<string, TechMapItem> = {
     icon: SiReact,
     url: 'https://react.dev/',
   },
+  'react native': {
+    icon: SiReact,
+    url: 'https://reactnative.dev/',
+  },
   'react.js': {
     icon: SiReact,
     url: 'https://react.dev/',

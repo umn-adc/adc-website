@@ -21,10 +21,232 @@ export type Project = {
   _rev: string;
   id?: string;
   title?: string;
+  blurb?: string;
   description?: string;
+  longDescription?: string;
   tags?: Array<string>;
-  type?: 'mobile' | 'web';
+  types?: Array<string>;
+  type?: 'mobile' | 'web' | 'cli';
   stage?: 'release' | 'dev' | 'unsupported';
+  leadership?: Array<{
+    title?: string;
+    officer?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'officer';
+    };
+    _type: 'projectLeadership';
+    _key: string;
+  }>;
+  techStack?: Array<
+    | 'adobe suite'
+    | 'airflow'
+    | 'airtable'
+    | 'angular'
+    | 'ansible'
+    | 'anthropic'
+    | 'astro'
+    | 'aws'
+    | 'babel'
+    | 'bootstrap'
+    | 'bun'
+    | 'c'
+    | 'c#'
+    | 'c++'
+    | 'canva'
+    | 'clojure'
+    | 'cloudflare'
+    | 'confluence'
+    | 'dart'
+    | 'databricks'
+    | 'digitalocean'
+    | 'django'
+    | 'docker'
+    | 'elasticsearch'
+    | 'electron'
+    | 'elixir'
+    | 'erlang'
+    | 'excel'
+    | 'expo'
+    | 'express'
+    | 'express.js'
+    | 'fastapi'
+    | 'figma'
+    | 'firebase'
+    | 'flask'
+    | 'flutter'
+    | 'framer'
+    | 'gatsby'
+    | 'gcp'
+    | 'git'
+    | 'github'
+    | 'gitlab'
+    | 'go'
+    | 'graphql'
+    | 'hadoop'
+    | 'haskell'
+    | 'hasura'
+    | 'hugging face'
+    | 'java'
+    | 'javascript'
+    | 'jenkins'
+    | 'jest'
+    | 'jira'
+    | 'jquery'
+    | 'jupyter'
+    | 'kafka'
+    | 'kotlin'
+    | 'kubernetes'
+    | 'langchain'
+    | 'laravel'
+    | 'linear'
+    | 'linux'
+    | 'mariadb'
+    | 'material ui'
+    | 'mongodb'
+    | 'mui'
+    | 'mysql'
+    | 'neovim'
+    | 'nestjs'
+    | 'netlify'
+    | 'next.js'
+    | 'nextjs'
+    | 'nginx'
+    | 'node.js'
+    | 'nodejs'
+    | 'notion'
+    | 'numpy'
+    | 'nuxt'
+    | 'nuxt.js'
+    | 'nuxtjs'
+    | 'openai'
+    | 'openjdk'
+    | 'oracle'
+    | 'pandas'
+    | 'perplexity'
+    | 'php'
+    | 'postgresql'
+    | 'postman'
+    | 'prisma'
+    | 'python'
+    | 'pytorch'
+    | 'r'
+    | 'rabbitmq'
+    | 'react'
+    | 'react router'
+    | 'react.js'
+    | 'reactjs'
+    | 'redis'
+    | 'redux'
+    | 'remix'
+    | 'rstudio'
+    | 'ruby'
+    | 'ruby on rails'
+    | 'rust'
+    | 'sass'
+    | 'scala'
+    | 'shopify'
+    | 'sklearn'
+    | 'slack'
+    | 'snowflake'
+    | 'socket.io'
+    | 'spark'
+    | 'springboot'
+    | 'sql'
+    | 'sqlite'
+    | 'storybook'
+    | 'supabase'
+    | 'svelte'
+    | 'swift'
+    | 'tableau'
+    | 'tailwind'
+    | 'tailwind css'
+    | 'tailwindcss'
+    | 'tensorflow'
+    | 'terraform'
+    | 'three.js'
+    | 'trello'
+    | 'typescript'
+    | 'ubuntu'
+    | 'unity'
+    | 'unreal engine'
+    | 'vercel'
+    | 'vim'
+    | 'vite'
+    | 'vitest'
+    | 'vue'
+    | 'vue.js'
+    | 'vuejs'
+    | 'webflow'
+    | 'webpack'
+    | 'wordpress'
+    | 'xcode'
+  >;
+  links?: {
+    web?: string;
+    ios?: string;
+    android?: string;
+    other?: string;
+  };
+  startDate?: string;
+  releaseDate?: string;
+  deprecationDate?: string;
+  demoVideo?: {
+    web?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+      };
+      media?: unknown;
+      _type: 'file';
+    };
+    ios?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+      };
+      media?: unknown;
+      _type: 'file';
+    };
+    android?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+      };
+      media?: unknown;
+      _type: 'file';
+    };
+    cli?: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset';
+      };
+      media?: unknown;
+      _type: 'file';
+    };
+  };
+  terminalExample?: Array<string>;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
   href?: string;
   img?: {
     asset?: {
@@ -81,6 +303,18 @@ export type Officer = {
     _key: string;
   }>;
   logo?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+  photo?: {
     asset?: {
       _ref: string;
       _type: 'reference';
@@ -699,14 +933,14 @@ export type EVENTS_QUERYResult = Array<never>;
 
 // Source: sanity/lib/queries/officer.ts
 // Variable: OFFICERS_QUERY
-// Query: *[_type == "officer"] | order(id asc) {      _id,  id,  "slug": slug.current,  givenName,  familyName,  current,  specialization,  positions[] {    position,    startYear,    endYear  },  "logo": logo.asset->url,  "projects": projects[]->{    "identifier": coalesce(slug.current, id)  }[].identifier,  "modelUrl": modelFile.asset->url,  bioShort,  bioLong,  detailsTitle,  leadershipStyle,  nationalities,  college,  major,  classYear,  techStack,  companies,  highlights,  hobbies,  links[] {    type,    label,    url  }  }
+// Query: *[_type == "officer" && current == true] | order(id asc) {      _id,  id,  "slug": slug.current,  givenName,  familyName,  current,  specialization,  positions[] {    position,    startYear,    endYear  },  "logo": logo.asset->url,  "projects": projects[]->{    "identifier": coalesce(slug.current, id)  }.identifier,  "modelUrl": modelFile.asset->url,  bioShort,  bioLong,  detailsTitle,  leadershipStyle,  nationalities,  college,  major,  classYear,  techStack,  companies,  highlights,  hobbies,  links[] {    type,    label,    url  }  }
 export type OFFICERS_QUERYResult = Array<{
   _id: string;
   id: string | null;
   slug: string | null;
   givenName: string | null;
   familyName: string | null;
-  current: boolean | null;
+  current: true;
   specialization: string | null;
   positions: Array<{
     position: string | null;
@@ -714,7 +948,7 @@ export type OFFICERS_QUERYResult = Array<{
     endYear: number | null;
   }> | null;
   logo: string | null;
-  projects: Array<null> | null;
+  projects: Array<string | null> | null;
   modelUrl: string | null;
   bioShort: string | null;
   bioLong: string | null;
@@ -1164,7 +1398,7 @@ export type OFFICERS_QUERYResult = Array<{
   }> | null;
 }>;
 // Variable: OFFICER_BY_IDENTIFIER_QUERY
-// Query: *[    _type == "officer" &&    (      lower(slug.current) == $slugIdentifier ||      lower(id) == $hexIdentifier    )  ][0] {      _id,  id,  "slug": slug.current,  givenName,  familyName,  current,  specialization,  positions[] {    position,    startYear,    endYear  },  "logo": logo.asset->url,  "projects": projects[]->{    "identifier": coalesce(slug.current, id)  }[].identifier,  "modelUrl": modelFile.asset->url,  bioShort,  bioLong,  detailsTitle,  leadershipStyle,  nationalities,  college,  major,  classYear,  techStack,  companies,  highlights,  hobbies,  links[] {    type,    label,    url  }  }
+// Query: *[    _type == "officer" &&    (      lower(slug.current) == $slugIdentifier ||      lower(id) == $hexIdentifier    )  ][0] {      _id,  id,  "slug": slug.current,  givenName,  familyName,  current,  specialization,  positions[] {    position,    startYear,    endYear  },  "logo": logo.asset->url,  "projects": projects[]->{    "identifier": coalesce(slug.current, id)  }.identifier,  "modelUrl": modelFile.asset->url,  bioShort,  bioLong,  detailsTitle,  leadershipStyle,  nationalities,  college,  major,  classYear,  techStack,  companies,  highlights,  hobbies,  links[] {    type,    label,    url  }  }
 export type OFFICER_BY_IDENTIFIER_QUERYResult = {
   _id: string;
   id: string | null;
@@ -1179,7 +1413,7 @@ export type OFFICER_BY_IDENTIFIER_QUERYResult = {
     endYear: number | null;
   }> | null;
   logo: string | null;
-  projects: Array<null> | null;
+  projects: Array<string | null> | null;
   modelUrl: string | null;
   bioShort: string | null;
   bioLong: string | null;
@@ -1637,15 +1871,190 @@ export type OFFICER_IDENTIFIERS_QUERYResult = Array<{
 
 // Source: sanity/lib/queries/project.ts
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project"]    | order(        select(          stage == "dev" => 0,          stage == "release" => 1,          stage == "unsupported" => 2,          3        ) asc,        _createdAt desc      ) {    _id,    id,    title,    description,    tags,    type,    stage,    href,    img,    color,    stats {      users,      rating    }  }
+// Query: *[_type == "project"]    | order(        select(          stage == "dev" => 0,          stage == "release" => 1,          stage == "unsupported" => 2,          3        ) asc,        _createdAt desc      ) {      _id,  id,  "slug": coalesce(slug.current, id),  title,  blurb,  description,  longDescription,  tags,  "types": array::compact(coalesce(types, select(defined(type) => [type], []))),  stage,  leadership[] {    title,    "officer": officer->{      _id,      id,      "slug": slug.current,      givenName,      familyName,      "photo": photo.asset->url    }  },  techStack,  links {    web,    ios,    android,    other  },  startDate,  releaseDate,  deprecationDate,  demoVideo {    "web": web.asset->url,    "ios": ios.asset->url,    "android": android.asset->url,    "cli": cli.asset->url  },  terminalExample,  "logo": logo.asset->url,  href,  img,  color,  stats {    users,    rating  }  }
 export type PROJECTS_QUERYResult = Array<{
   _id: string;
   id: string | null;
+  slug: string | null;
   title: string | null;
+  blurb: string | null;
   description: string | null;
+  longDescription: string | null;
   tags: Array<string> | null;
-  type: 'mobile' | 'web' | null;
+  types: Array<string> | Array<never> | Array<'cli' | 'mobile' | 'web'>;
   stage: 'dev' | 'release' | 'unsupported' | null;
+  leadership: Array<{
+    title: string | null;
+    officer: {
+      _id: string;
+      id: string | null;
+      slug: string | null;
+      givenName: string | null;
+      familyName: string | null;
+      photo: string | null;
+    } | null;
+  }> | null;
+  techStack: Array<
+    | 'adobe suite'
+    | 'airflow'
+    | 'airtable'
+    | 'angular'
+    | 'ansible'
+    | 'anthropic'
+    | 'astro'
+    | 'aws'
+    | 'babel'
+    | 'bootstrap'
+    | 'bun'
+    | 'c'
+    | 'c#'
+    | 'c++'
+    | 'canva'
+    | 'clojure'
+    | 'cloudflare'
+    | 'confluence'
+    | 'dart'
+    | 'databricks'
+    | 'digitalocean'
+    | 'django'
+    | 'docker'
+    | 'elasticsearch'
+    | 'electron'
+    | 'elixir'
+    | 'erlang'
+    | 'excel'
+    | 'expo'
+    | 'express.js'
+    | 'express'
+    | 'fastapi'
+    | 'figma'
+    | 'firebase'
+    | 'flask'
+    | 'flutter'
+    | 'framer'
+    | 'gatsby'
+    | 'gcp'
+    | 'git'
+    | 'github'
+    | 'gitlab'
+    | 'go'
+    | 'graphql'
+    | 'hadoop'
+    | 'haskell'
+    | 'hasura'
+    | 'hugging face'
+    | 'java'
+    | 'javascript'
+    | 'jenkins'
+    | 'jest'
+    | 'jira'
+    | 'jquery'
+    | 'jupyter'
+    | 'kafka'
+    | 'kotlin'
+    | 'kubernetes'
+    | 'langchain'
+    | 'laravel'
+    | 'linear'
+    | 'linux'
+    | 'mariadb'
+    | 'material ui'
+    | 'mongodb'
+    | 'mui'
+    | 'mysql'
+    | 'neovim'
+    | 'nestjs'
+    | 'netlify'
+    | 'next.js'
+    | 'nextjs'
+    | 'nginx'
+    | 'node.js'
+    | 'nodejs'
+    | 'notion'
+    | 'numpy'
+    | 'nuxt.js'
+    | 'nuxt'
+    | 'nuxtjs'
+    | 'openai'
+    | 'openjdk'
+    | 'oracle'
+    | 'pandas'
+    | 'perplexity'
+    | 'php'
+    | 'postgresql'
+    | 'postman'
+    | 'prisma'
+    | 'python'
+    | 'pytorch'
+    | 'r'
+    | 'rabbitmq'
+    | 'react router'
+    | 'react.js'
+    | 'react'
+    | 'reactjs'
+    | 'redis'
+    | 'redux'
+    | 'remix'
+    | 'rstudio'
+    | 'ruby on rails'
+    | 'ruby'
+    | 'rust'
+    | 'sass'
+    | 'scala'
+    | 'shopify'
+    | 'sklearn'
+    | 'slack'
+    | 'snowflake'
+    | 'socket.io'
+    | 'spark'
+    | 'springboot'
+    | 'sql'
+    | 'sqlite'
+    | 'storybook'
+    | 'supabase'
+    | 'svelte'
+    | 'swift'
+    | 'tableau'
+    | 'tailwind css'
+    | 'tailwind'
+    | 'tailwindcss'
+    | 'tensorflow'
+    | 'terraform'
+    | 'three.js'
+    | 'trello'
+    | 'typescript'
+    | 'ubuntu'
+    | 'unity'
+    | 'unreal engine'
+    | 'vercel'
+    | 'vim'
+    | 'vite'
+    | 'vitest'
+    | 'vue.js'
+    | 'vue'
+    | 'vuejs'
+    | 'webflow'
+    | 'webpack'
+    | 'wordpress'
+    | 'xcode'
+  > | null;
+  links: {
+    web: string | null;
+    ios: string | null;
+    android: string | null;
+    other: string | null;
+  } | null;
+  startDate: string | null;
+  releaseDate: string | null;
+  deprecationDate: string | null;
+  demoVideo: {
+    web: string | null;
+    ios: string | null;
+    android: string | null;
+    cli: string | null;
+  } | null;
+  terminalExample: Array<string> | null;
+  logo: string | null;
   href: string | null;
   img: {
     asset?: {
@@ -1666,16 +2075,190 @@ export type PROJECTS_QUERYResult = Array<{
   } | null;
 }>;
 // Variable: PROJECTS_BY_SLUGS_QUERY
-// Query: *[    _type == "project" &&    (      id in $slugs ||      slug.current in $slugs    )  ] {    _id,    id,    "slug": coalesce(slug.current, id),    title,    description,    tags,    type,    stage,    href,    img,    color,    stats {      users,      rating    }  }
+// Query: *[    _type == "project" &&    (      id in $slugs ||      slug.current in $slugs    )  ] {      _id,  id,  "slug": coalesce(slug.current, id),  title,  blurb,  description,  longDescription,  tags,  "types": array::compact(coalesce(types, select(defined(type) => [type], []))),  stage,  leadership[] {    title,    "officer": officer->{      _id,      id,      "slug": slug.current,      givenName,      familyName,      "photo": photo.asset->url    }  },  techStack,  links {    web,    ios,    android,    other  },  startDate,  releaseDate,  deprecationDate,  demoVideo {    "web": web.asset->url,    "ios": ios.asset->url,    "android": android.asset->url,    "cli": cli.asset->url  },  terminalExample,  "logo": logo.asset->url,  href,  img,  color,  stats {    users,    rating  }  }
 export type PROJECTS_BY_SLUGS_QUERYResult = Array<{
   _id: string;
   id: string | null;
   slug: string | null;
   title: string | null;
+  blurb: string | null;
   description: string | null;
+  longDescription: string | null;
   tags: Array<string> | null;
-  type: 'mobile' | 'web' | null;
+  types: Array<string> | Array<never> | Array<'cli' | 'mobile' | 'web'>;
   stage: 'dev' | 'release' | 'unsupported' | null;
+  leadership: Array<{
+    title: string | null;
+    officer: {
+      _id: string;
+      id: string | null;
+      slug: string | null;
+      givenName: string | null;
+      familyName: string | null;
+      photo: string | null;
+    } | null;
+  }> | null;
+  techStack: Array<
+    | 'adobe suite'
+    | 'airflow'
+    | 'airtable'
+    | 'angular'
+    | 'ansible'
+    | 'anthropic'
+    | 'astro'
+    | 'aws'
+    | 'babel'
+    | 'bootstrap'
+    | 'bun'
+    | 'c'
+    | 'c#'
+    | 'c++'
+    | 'canva'
+    | 'clojure'
+    | 'cloudflare'
+    | 'confluence'
+    | 'dart'
+    | 'databricks'
+    | 'digitalocean'
+    | 'django'
+    | 'docker'
+    | 'elasticsearch'
+    | 'electron'
+    | 'elixir'
+    | 'erlang'
+    | 'excel'
+    | 'expo'
+    | 'express.js'
+    | 'express'
+    | 'fastapi'
+    | 'figma'
+    | 'firebase'
+    | 'flask'
+    | 'flutter'
+    | 'framer'
+    | 'gatsby'
+    | 'gcp'
+    | 'git'
+    | 'github'
+    | 'gitlab'
+    | 'go'
+    | 'graphql'
+    | 'hadoop'
+    | 'haskell'
+    | 'hasura'
+    | 'hugging face'
+    | 'java'
+    | 'javascript'
+    | 'jenkins'
+    | 'jest'
+    | 'jira'
+    | 'jquery'
+    | 'jupyter'
+    | 'kafka'
+    | 'kotlin'
+    | 'kubernetes'
+    | 'langchain'
+    | 'laravel'
+    | 'linear'
+    | 'linux'
+    | 'mariadb'
+    | 'material ui'
+    | 'mongodb'
+    | 'mui'
+    | 'mysql'
+    | 'neovim'
+    | 'nestjs'
+    | 'netlify'
+    | 'next.js'
+    | 'nextjs'
+    | 'nginx'
+    | 'node.js'
+    | 'nodejs'
+    | 'notion'
+    | 'numpy'
+    | 'nuxt.js'
+    | 'nuxt'
+    | 'nuxtjs'
+    | 'openai'
+    | 'openjdk'
+    | 'oracle'
+    | 'pandas'
+    | 'perplexity'
+    | 'php'
+    | 'postgresql'
+    | 'postman'
+    | 'prisma'
+    | 'python'
+    | 'pytorch'
+    | 'r'
+    | 'rabbitmq'
+    | 'react router'
+    | 'react.js'
+    | 'react'
+    | 'reactjs'
+    | 'redis'
+    | 'redux'
+    | 'remix'
+    | 'rstudio'
+    | 'ruby on rails'
+    | 'ruby'
+    | 'rust'
+    | 'sass'
+    | 'scala'
+    | 'shopify'
+    | 'sklearn'
+    | 'slack'
+    | 'snowflake'
+    | 'socket.io'
+    | 'spark'
+    | 'springboot'
+    | 'sql'
+    | 'sqlite'
+    | 'storybook'
+    | 'supabase'
+    | 'svelte'
+    | 'swift'
+    | 'tableau'
+    | 'tailwind css'
+    | 'tailwind'
+    | 'tailwindcss'
+    | 'tensorflow'
+    | 'terraform'
+    | 'three.js'
+    | 'trello'
+    | 'typescript'
+    | 'ubuntu'
+    | 'unity'
+    | 'unreal engine'
+    | 'vercel'
+    | 'vim'
+    | 'vite'
+    | 'vitest'
+    | 'vue.js'
+    | 'vue'
+    | 'vuejs'
+    | 'webflow'
+    | 'webpack'
+    | 'wordpress'
+    | 'xcode'
+  > | null;
+  links: {
+    web: string | null;
+    ios: string | null;
+    android: string | null;
+    other: string | null;
+  } | null;
+  startDate: string | null;
+  releaseDate: string | null;
+  deprecationDate: string | null;
+  demoVideo: {
+    web: string | null;
+    ios: string | null;
+    android: string | null;
+    cli: string | null;
+  } | null;
+  terminalExample: Array<string> | null;
+  logo: string | null;
   href: string | null;
   img: {
     asset?: {
@@ -1695,16 +2278,228 @@ export type PROJECTS_BY_SLUGS_QUERYResult = Array<{
     rating: number | null;
   } | null;
 }>;
+// Variable: PROJECT_BY_IDENTIFIER_QUERY
+// Query: *[    _type == "project" &&    (      lower(id) == $identifier ||      lower(slug.current) == $identifier    )  ][0] {      _id,  id,  "slug": coalesce(slug.current, id),  title,  blurb,  description,  longDescription,  tags,  "types": array::compact(coalesce(types, select(defined(type) => [type], []))),  stage,  leadership[] {    title,    "officer": officer->{      _id,      id,      "slug": slug.current,      givenName,      familyName,      "photo": photo.asset->url    }  },  techStack,  links {    web,    ios,    android,    other  },  startDate,  releaseDate,  deprecationDate,  demoVideo {    "web": web.asset->url,    "ios": ios.asset->url,    "android": android.asset->url,    "cli": cli.asset->url  },  terminalExample,  "logo": logo.asset->url,  href,  img,  color,  stats {    users,    rating  }  }
+export type PROJECT_BY_IDENTIFIER_QUERYResult = {
+  _id: string;
+  id: string | null;
+  slug: string | null;
+  title: string | null;
+  blurb: string | null;
+  description: string | null;
+  longDescription: string | null;
+  tags: Array<string> | null;
+  types: Array<string> | Array<never> | Array<'cli' | 'mobile' | 'web'>;
+  stage: 'dev' | 'release' | 'unsupported' | null;
+  leadership: Array<{
+    title: string | null;
+    officer: {
+      _id: string;
+      id: string | null;
+      slug: string | null;
+      givenName: string | null;
+      familyName: string | null;
+      photo: string | null;
+    } | null;
+  }> | null;
+  techStack: Array<
+    | 'adobe suite'
+    | 'airflow'
+    | 'airtable'
+    | 'angular'
+    | 'ansible'
+    | 'anthropic'
+    | 'astro'
+    | 'aws'
+    | 'babel'
+    | 'bootstrap'
+    | 'bun'
+    | 'c'
+    | 'c#'
+    | 'c++'
+    | 'canva'
+    | 'clojure'
+    | 'cloudflare'
+    | 'confluence'
+    | 'dart'
+    | 'databricks'
+    | 'digitalocean'
+    | 'django'
+    | 'docker'
+    | 'elasticsearch'
+    | 'electron'
+    | 'elixir'
+    | 'erlang'
+    | 'excel'
+    | 'expo'
+    | 'express.js'
+    | 'express'
+    | 'fastapi'
+    | 'figma'
+    | 'firebase'
+    | 'flask'
+    | 'flutter'
+    | 'framer'
+    | 'gatsby'
+    | 'gcp'
+    | 'git'
+    | 'github'
+    | 'gitlab'
+    | 'go'
+    | 'graphql'
+    | 'hadoop'
+    | 'haskell'
+    | 'hasura'
+    | 'hugging face'
+    | 'java'
+    | 'javascript'
+    | 'jenkins'
+    | 'jest'
+    | 'jira'
+    | 'jquery'
+    | 'jupyter'
+    | 'kafka'
+    | 'kotlin'
+    | 'kubernetes'
+    | 'langchain'
+    | 'laravel'
+    | 'linear'
+    | 'linux'
+    | 'mariadb'
+    | 'material ui'
+    | 'mongodb'
+    | 'mui'
+    | 'mysql'
+    | 'neovim'
+    | 'nestjs'
+    | 'netlify'
+    | 'next.js'
+    | 'nextjs'
+    | 'nginx'
+    | 'node.js'
+    | 'nodejs'
+    | 'notion'
+    | 'numpy'
+    | 'nuxt.js'
+    | 'nuxt'
+    | 'nuxtjs'
+    | 'openai'
+    | 'openjdk'
+    | 'oracle'
+    | 'pandas'
+    | 'perplexity'
+    | 'php'
+    | 'postgresql'
+    | 'postman'
+    | 'prisma'
+    | 'python'
+    | 'pytorch'
+    | 'r'
+    | 'rabbitmq'
+    | 'react router'
+    | 'react.js'
+    | 'react'
+    | 'reactjs'
+    | 'redis'
+    | 'redux'
+    | 'remix'
+    | 'rstudio'
+    | 'ruby on rails'
+    | 'ruby'
+    | 'rust'
+    | 'sass'
+    | 'scala'
+    | 'shopify'
+    | 'sklearn'
+    | 'slack'
+    | 'snowflake'
+    | 'socket.io'
+    | 'spark'
+    | 'springboot'
+    | 'sql'
+    | 'sqlite'
+    | 'storybook'
+    | 'supabase'
+    | 'svelte'
+    | 'swift'
+    | 'tableau'
+    | 'tailwind css'
+    | 'tailwind'
+    | 'tailwindcss'
+    | 'tensorflow'
+    | 'terraform'
+    | 'three.js'
+    | 'trello'
+    | 'typescript'
+    | 'ubuntu'
+    | 'unity'
+    | 'unreal engine'
+    | 'vercel'
+    | 'vim'
+    | 'vite'
+    | 'vitest'
+    | 'vue.js'
+    | 'vue'
+    | 'vuejs'
+    | 'webflow'
+    | 'webpack'
+    | 'wordpress'
+    | 'xcode'
+  > | null;
+  links: {
+    web: string | null;
+    ios: string | null;
+    android: string | null;
+    other: string | null;
+  } | null;
+  startDate: string | null;
+  releaseDate: string | null;
+  deprecationDate: string | null;
+  demoVideo: {
+    web: string | null;
+    ios: string | null;
+    android: string | null;
+    cli: string | null;
+  } | null;
+  terminalExample: Array<string> | null;
+  logo: string | null;
+  href: string | null;
+  img: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  } | null;
+  color: string | null;
+  stats: {
+    users: number | null;
+    rating: number | null;
+  } | null;
+} | null;
+// Variable: PROJECT_IDENTIFIERS_QUERY
+// Query: *[_type == "project"]{    id,    "slug": coalesce(slug.current, id)  }
+export type PROJECT_IDENTIFIERS_QUERYResult = Array<{
+  id: string | null;
+  slug: string | null;
+}>;
 
 // Query TypeMap
 import '@sanity/client';
 declare module '@sanity/client' {
   interface SanityQueries {
     '\n  *[_type == "event" && date >= now()] | order(date asc) {\n    _id,\n    id,\n    title,\n    description,\n    link,\n    date,\n    location,\n    attendees,\n    type,\n    featured\n  }\n': EVENTS_QUERYResult;
-    '\n  *[_type == "officer"] | order(id asc) {\n    \n  _id,\n  id,\n  "slug": slug.current,\n  givenName,\n  familyName,\n  current,\n  specialization,\n  positions[] {\n    position,\n    startYear,\n    endYear\n  },\n  "logo": logo.asset->url,\n  "projects": projects[]->{\n    "identifier": coalesce(slug.current, id)\n  }[].identifier,\n  "modelUrl": modelFile.asset->url,\n  bioShort,\n  bioLong,\n  detailsTitle,\n  leadershipStyle,\n  nationalities,\n  college,\n  major,\n  classYear,\n  techStack,\n  companies,\n  highlights,\n  hobbies,\n  links[] {\n    type,\n    label,\n    url\n  }\n\n  }\n': OFFICERS_QUERYResult;
-    '\n  *[\n    _type == "officer" &&\n    (\n      lower(slug.current) == $slugIdentifier ||\n      lower(id) == $hexIdentifier\n    )\n  ][0] {\n    \n  _id,\n  id,\n  "slug": slug.current,\n  givenName,\n  familyName,\n  current,\n  specialization,\n  positions[] {\n    position,\n    startYear,\n    endYear\n  },\n  "logo": logo.asset->url,\n  "projects": projects[]->{\n    "identifier": coalesce(slug.current, id)\n  }[].identifier,\n  "modelUrl": modelFile.asset->url,\n  bioShort,\n  bioLong,\n  detailsTitle,\n  leadershipStyle,\n  nationalities,\n  college,\n  major,\n  classYear,\n  techStack,\n  companies,\n  highlights,\n  hobbies,\n  links[] {\n    type,\n    label,\n    url\n  }\n\n  }\n': OFFICER_BY_IDENTIFIER_QUERYResult;
+    '\n  *[_type == "officer" && current == true] | order(id asc) {\n    \n  _id,\n  id,\n  "slug": slug.current,\n  givenName,\n  familyName,\n  current,\n  specialization,\n  positions[] {\n    position,\n    startYear,\n    endYear\n  },\n  "logo": logo.asset->url,\n  "projects": projects[]->{\n    "identifier": coalesce(slug.current, id)\n  }.identifier,\n  "modelUrl": modelFile.asset->url,\n  bioShort,\n  bioLong,\n  detailsTitle,\n  leadershipStyle,\n  nationalities,\n  college,\n  major,\n  classYear,\n  techStack,\n  companies,\n  highlights,\n  hobbies,\n  links[] {\n    type,\n    label,\n    url\n  }\n\n  }\n': OFFICERS_QUERYResult;
+    '\n  *[\n    _type == "officer" &&\n    (\n      lower(slug.current) == $slugIdentifier ||\n      lower(id) == $hexIdentifier\n    )\n  ][0] {\n    \n  _id,\n  id,\n  "slug": slug.current,\n  givenName,\n  familyName,\n  current,\n  specialization,\n  positions[] {\n    position,\n    startYear,\n    endYear\n  },\n  "logo": logo.asset->url,\n  "projects": projects[]->{\n    "identifier": coalesce(slug.current, id)\n  }.identifier,\n  "modelUrl": modelFile.asset->url,\n  bioShort,\n  bioLong,\n  detailsTitle,\n  leadershipStyle,\n  nationalities,\n  college,\n  major,\n  classYear,\n  techStack,\n  companies,\n  highlights,\n  hobbies,\n  links[] {\n    type,\n    label,\n    url\n  }\n\n  }\n': OFFICER_BY_IDENTIFIER_QUERYResult;
     '\n  *[_type == "officer"]{\n    id,\n    "slug": slug.current\n  }\n': OFFICER_IDENTIFIERS_QUERYResult;
-    '\n  *[_type == "project"]\n    | order(\n        select(\n          stage == "dev" => 0,\n          stage == "release" => 1,\n          stage == "unsupported" => 2,\n          3\n        ) asc,\n        _createdAt desc\n      ) {\n    _id,\n    id,\n    title,\n    description,\n    tags,\n    type,\n    stage,\n    href,\n    img,\n    color,\n    stats {\n      users,\n      rating\n    }\n  }\n': PROJECTS_QUERYResult;
-    '\n  *[\n    _type == "project" &&\n    (\n      id in $slugs ||\n      slug.current in $slugs\n    )\n  ] {\n    _id,\n    id,\n    "slug": coalesce(slug.current, id),\n    title,\n    description,\n    tags,\n    type,\n    stage,\n    href,\n    img,\n    color,\n    stats {\n      users,\n      rating\n    }\n  }\n': PROJECTS_BY_SLUGS_QUERYResult;
+    '\n  *[_type == "project"]\n    | order(\n        select(\n          stage == "dev" => 0,\n          stage == "release" => 1,\n          stage == "unsupported" => 2,\n          3\n        ) asc,\n        _createdAt desc\n      ) {\n    \n  _id,\n  id,\n  "slug": coalesce(slug.current, id),\n  title,\n  blurb,\n  description,\n  longDescription,\n  tags,\n  "types": array::compact(coalesce(types, select(defined(type) => [type], []))),\n  stage,\n  leadership[] {\n    title,\n    "officer": officer->{\n      _id,\n      id,\n      "slug": slug.current,\n      givenName,\n      familyName,\n      "photo": photo.asset->url\n    }\n  },\n  techStack,\n  links {\n    web,\n    ios,\n    android,\n    other\n  },\n  startDate,\n  releaseDate,\n  deprecationDate,\n  demoVideo {\n    "web": web.asset->url,\n    "ios": ios.asset->url,\n    "android": android.asset->url,\n    "cli": cli.asset->url\n  },\n  terminalExample,\n  "logo": logo.asset->url,\n  href,\n  img,\n  color,\n  stats {\n    users,\n    rating\n  }\n\n  }\n': PROJECTS_QUERYResult;
+    '\n  *[\n    _type == "project" &&\n    (\n      id in $slugs ||\n      slug.current in $slugs\n    )\n  ] {\n    \n  _id,\n  id,\n  "slug": coalesce(slug.current, id),\n  title,\n  blurb,\n  description,\n  longDescription,\n  tags,\n  "types": array::compact(coalesce(types, select(defined(type) => [type], []))),\n  stage,\n  leadership[] {\n    title,\n    "officer": officer->{\n      _id,\n      id,\n      "slug": slug.current,\n      givenName,\n      familyName,\n      "photo": photo.asset->url\n    }\n  },\n  techStack,\n  links {\n    web,\n    ios,\n    android,\n    other\n  },\n  startDate,\n  releaseDate,\n  deprecationDate,\n  demoVideo {\n    "web": web.asset->url,\n    "ios": ios.asset->url,\n    "android": android.asset->url,\n    "cli": cli.asset->url\n  },\n  terminalExample,\n  "logo": logo.asset->url,\n  href,\n  img,\n  color,\n  stats {\n    users,\n    rating\n  }\n\n  }\n': PROJECTS_BY_SLUGS_QUERYResult;
+    '\n  *[\n    _type == "project" &&\n    (\n      lower(id) == $identifier ||\n      lower(slug.current) == $identifier\n    )\n  ][0] {\n    \n  _id,\n  id,\n  "slug": coalesce(slug.current, id),\n  title,\n  blurb,\n  description,\n  longDescription,\n  tags,\n  "types": array::compact(coalesce(types, select(defined(type) => [type], []))),\n  stage,\n  leadership[] {\n    title,\n    "officer": officer->{\n      _id,\n      id,\n      "slug": slug.current,\n      givenName,\n      familyName,\n      "photo": photo.asset->url\n    }\n  },\n  techStack,\n  links {\n    web,\n    ios,\n    android,\n    other\n  },\n  startDate,\n  releaseDate,\n  deprecationDate,\n  demoVideo {\n    "web": web.asset->url,\n    "ios": ios.asset->url,\n    "android": android.asset->url,\n    "cli": cli.asset->url\n  },\n  terminalExample,\n  "logo": logo.asset->url,\n  href,\n  img,\n  color,\n  stats {\n    users,\n    rating\n  }\n\n  }\n': PROJECT_BY_IDENTIFIER_QUERYResult;
+    '\n  *[_type == "project"]{\n    id,\n    "slug": coalesce(slug.current, id)\n  }\n': PROJECT_IDENTIFIERS_QUERYResult;
   }
 }

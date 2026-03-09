@@ -214,6 +214,15 @@ export const officerType = defineType({
       },
     }),
     defineField({
+      name: 'photo',
+      title: 'Photo',
+      type: 'image',
+      description: 'Upload a profile photo for this officer.',
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
       name: 'projects',
       title: 'Projects',
       type: 'array',
